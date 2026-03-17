@@ -44,8 +44,14 @@ public class Pagibig implements PaymentMethod {
         return 0.0675;
     }
 
-    public String getMembershipId()          { return membershipId; }
-    public String getLoanType()              { return loanType; }
+    public String getMembershipId(){ 
+        return membershipId; 
+    }
+    
+    public String getLoanType(){ 
+        return loanType; 
+    }
+    
     public double getLoanAmount()            { return loanAmount; }
     public boolean isApproved()              { return approved; }
     public void setApproved(boolean approved){ this.approved = approved; }
