@@ -26,7 +26,12 @@
       "Bash(cmd.exe /c \"call C:\\\\Temp\\\\build_lumina.bat\")",
       "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"\n\\\\$sources = Get-ChildItem 'C:\\\\Users\\\\My Computer\\\\Documents\\\\Important Stuff\\\\School\\\\College\\\\Coding\\\\Netbeans\\\\LuminaRealEstateSystem\\\\src' -Filter '*.java' -Recurse | ForEach-Object FullName\n\\\\$sources | Set-Content 'C:\\\\Temp\\\\sources.txt' -Encoding UTF8\nNew-Item -ItemType Directory -Force 'C:\\\\Temp\\\\lumina_build2' | Out-Null\n\\\\$result = & javac -d 'C:\\\\Temp\\\\lumina_build2' \\(Get-Content 'C:\\\\Temp\\\\sources.txt'\\) 2>&1\n\\\\$result\nWrite-Host 'Exit:' \\\\$LASTEXITCODE\n\" 2>&1)",
       "Bash(javac -d build/classes -sourcepath src src/MyLib/*.java src/MyApp/*.java)",
-      "Bash(ls \"C:\\\\Users\\\\My Computer\\\\Documents\\\\Important Stuff\\\\School\\\\College\\\\Coding\\\\Netbeans\\\\LuminaRealEstateSystem\\\\build\\\\classes\\\\MyLib\"\" | wc -l && ls \"C:UsersMy ComputerDocumentsImportant StuffSchoolCollegeCodingNetbeansLuminaRealEstateSystembuildclassesMyApp\"\")"
+      "Bash(ls \"C:\\\\Users\\\\My Computer\\\\Documents\\\\Important Stuff\\\\School\\\\College\\\\Coding\\\\Netbeans\\\\LuminaRealEstateSystem\\\\build\\\\classes\\\\MyLib\"\" | wc -l && ls \"C:UsersMy ComputerDocumentsImportant StuffSchoolCollegeCodingNetbeansLuminaRealEstateSystembuildclassesMyApp\"\")",
+      "Bash(\"/c/Program Files/Apache NetBeans/extide/ant/bin/ant.bat\" clean compile)",
+      "Bash(java -version)",
+      "Bash(javac -version)",
+      "Bash(JAVA_HOME=\"/c/Program Files/Java/jdk-25\" \"/c/Program Files/Apache NetBeans/extide/ant/bin/ant.bat\" clean compile)",
+      "Bash(JAVA_HOME=\"/c/Program Files/Java/jdk-25\" \"/c/Program Files/Apache NetBeans/extide/ant/bin/ant.bat\" clean jar)"
     ]
   }
 }

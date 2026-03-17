@@ -32,7 +32,6 @@
       </Group>
     </DimensionLayout>
   </Layout>
-
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanel1">
 
@@ -56,7 +55,6 @@
           </Group>
         </DimensionLayout>
       </Layout>
-
       <SubComponents>
         <Container class="javax.swing.JPanel" name="jPanel5">
           <Properties>
@@ -64,6 +62,7 @@
               <Color blue="cc" green="33" red="0" type="rgb"/>
             </Property>
           </Properties>
+
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
@@ -73,7 +72,7 @@
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -110,9 +109,6 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="12" style="0"/>
-                </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="f0" green="d7" red="be" type="rgb"/>
                 </Property>
@@ -129,7 +125,6 @@
             </Component>
           </SubComponents>
         </Container>
-
         <Container class="javax.swing.JTabbedPane" name="mainTabs">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -137,6 +132,7 @@
             </Property>
           </Properties>
 
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="jPanel_browse">
               <Properties>
@@ -146,9 +142,12 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabTitle="Browse"/>
+                  <JTabbedPaneConstraints tabName="Browse">
+                    <Property name="tabTitle" type="java.lang.String" value="Browse"/>
+                  </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
+
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
               <SubComponents>
                 <Container class="javax.swing.JPanel" name="jPanel_browseFilter">
@@ -162,15 +161,14 @@
                       <BorderConstraints direction="North"/>
                     </Constraint>
                   </Constraints>
+
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
                     <Property name="alignment" type="int" value="2"/>
-                    <Property name="hgap" type="int" value="8"/>
-                    <Property name="vgap" type="int" value="4"/>
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel_maxBudget">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Max Budget (₱):"/>
+                        <Property name="text" type="java.lang.String" value="Max Budget (&#x20b1;):"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="buyerBudgetField">
@@ -199,7 +197,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel_floorAreaFilter">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Floor Area ≥ sqm:"/>
+                        <Property name="text" type="java.lang.String" value="Floor Area &#x2265; sqm:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField_floorArea">
@@ -209,7 +207,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel_lotAreaFilter">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Lot Area ≥ sqm:"/>
+                        <Property name="text" type="java.lang.String" value="Lot Area &#x2265; sqm:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField_lotArea">
@@ -235,19 +233,13 @@
                       <BorderConstraints direction="Center"/>
                     </Constraint>
                   </Constraints>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Component class="javax.swing.JTable" name="browseLotTable">
                       <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="12" style="0"/>
-                        </Property>
                         <Property name="rowHeight" type="int" value="26"/>
                       </Properties>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout$JScrollPaneConstraintsDescription">
-                          <JScrollPaneConstraints position="view"/>
-                        </Constraint>
-                      </Constraints>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -260,22 +252,20 @@
                       <BorderConstraints direction="South"/>
                     </Constraint>
                   </Constraints>
+
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
                     <Property name="alignment" type="int" value="4"/>
-                    <Property name="hgap" type="int" value="6"/>
-                    <Property name="vgap" type="int" value="4"/>
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JButton" name="jButton_selectLot">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Select Lot → Go to Purchase"/>
+                        <Property name="text" type="java.lang.String" value="Select Lot &#x2192; Go to Purchase"/>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
               </SubComponents>
             </Container>
-
             <Container class="javax.swing.JPanel" name="jPanel_purchase">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -284,9 +274,12 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabTitle="Purchase"/>
+                  <JTabbedPaneConstraints tabName="Purchase">
+                    <Property name="tabTitle" type="java.lang.String" value="Purchase"/>
+                  </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
+
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
               <SubComponents>
                 <Container class="javax.swing.JSplitPane" name="jSplitPane_purchase">
@@ -300,6 +293,8 @@
                       <BorderConstraints direction="Center"/>
                     </Constraint>
                   </Constraints>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
                   <SubComponents>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane_purchaseLeft">
                       <Constraints>
@@ -307,6 +302,8 @@
                           <JSplitPaneConstraints position="left"/>
                         </Constraint>
                       </Constraints>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
                         <Container class="javax.swing.JPanel" name="jPanel_purchaseLeft">
                           <Properties>
@@ -314,11 +311,7 @@
                               <Color blue="fc" green="f9" red="f8" type="rgb"/>
                             </Property>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout$JScrollPaneConstraintsDescription">
-                              <JScrollPaneConstraints position="view"/>
-                            </Constraint>
-                          </Constraints>
+
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -390,7 +383,7 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                       <Component id="jButton_submitToAgent" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -419,7 +412,7 @@
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                   <StringArray count="6">
-                                    <StringItem index="0" value="—"/>
+                                    <StringItem index="0" value="&#x2014;"/>
                                     <StringItem index="1" value="1"/>
                                     <StringItem index="2" value="2"/>
                                     <StringItem index="3" value="3"/>
@@ -481,8 +474,7 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Segoe UI" size="13" style="0"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="Senior Citizen — 20%"/>
-                                <Property name="opaque" type="boolean" value="false"/>
+                                <Property name="text" type="java.lang.String" value="Senior Citizen &#x2014; 20%"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JCheckBox" name="jCheckBox_pwd">
@@ -490,8 +482,7 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Segoe UI" size="13" style="0"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="PWD — 20%"/>
-                                <Property name="opaque" type="boolean" value="false"/>
+                                <Property name="text" type="java.lang.String" value="PWD &#x2014; 20%"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JCheckBox" name="jCheckBox_firstTime">
@@ -499,8 +490,7 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Segoe UI" size="13" style="0"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="First Time Buyer — 5%"/>
-                                <Property name="opaque" type="boolean" value="false"/>
+                                <Property name="text" type="java.lang.String" value="First Time Buyer &#x2014; 5%"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JCheckBox" name="jCheckBox_veteran">
@@ -508,8 +498,7 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Segoe UI" size="13" style="0"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="Veteran — 10%"/>
-                                <Property name="opaque" type="boolean" value="false"/>
+                                <Property name="text" type="java.lang.String" value="Veteran &#x2014; 10%"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_payHeader">
@@ -577,8 +566,8 @@
                                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Forward to Agent"/>
-                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="borderPainted" type="boolean" value="false"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="focusPainted" type="boolean" value="false"/>
                               </Properties>
                             </Component>
@@ -597,6 +586,7 @@
                           <JSplitPaneConstraints position="right"/>
                         </Constraint>
                       </Constraints>
+
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                       <SubComponents>
                         <Component class="javax.swing.JLabel" name="jLabel_modelName">
@@ -626,10 +616,10 @@
                               <BorderConstraints direction="Center"/>
                             </Constraint>
                           </Constraints>
+
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
                             <Property name="columns" type="int" value="2"/>
-                            <Property name="hgap" type="int" value="8"/>
-                            <Property name="vgap" type="int" value="6"/>
+                            <Property name="rows" type="int" value="1"/>
                           </Layout>
                           <SubComponents>
                             <Component class="javax.swing.JLabel" name="jLabel_tcpKey">
@@ -642,10 +632,7 @@
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_tcp">
                               <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="12" style="0"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="—"/>
+                                <Property name="text" type="java.lang.String" value="&#x2014;"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_discAmtKey">
@@ -658,10 +645,7 @@
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_discountAmt">
                               <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="12" style="0"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="—"/>
+                                <Property name="text" type="java.lang.String" value="&#x2014;"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_finalTcpKey">
@@ -680,7 +664,7 @@
                                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="cc" green="33" red="0" type="rgb"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="—"/>
+                                <Property name="text" type="java.lang.String" value="&#x2014;"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_resFeeKey">
@@ -693,10 +677,7 @@
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_resFee">
                               <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="12" style="0"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="—"/>
+                                <Property name="text" type="java.lang.String" value="&#x2014;"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_downPayKey">
@@ -709,10 +690,7 @@
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_downPayment">
                               <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="12" style="0"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="—"/>
+                                <Property name="text" type="java.lang.String" value="&#x2014;"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_dpTargetKey">
@@ -725,10 +703,7 @@
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_dpTarget">
                               <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="12" style="0"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="—"/>
+                                <Property name="text" type="java.lang.String" value="&#x2014;"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_dpPeriodKey">
@@ -741,10 +716,7 @@
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_dpPeriod">
                               <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="12" style="0"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="—"/>
+                                <Property name="text" type="java.lang.String" value="&#x2014;"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_interestKey">
@@ -757,10 +729,7 @@
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_interestRate">
                               <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="12" style="0"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="—"/>
+                                <Property name="text" type="java.lang.String" value="&#x2014;"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel_monthlyKey">
@@ -779,7 +748,7 @@
                                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="0" green="78" red="0" type="rgb"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="—"/>
+                                <Property name="text" type="java.lang.String" value="&#x2014;"/>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -790,19 +759,13 @@
                               <BorderConstraints direction="South"/>
                             </Constraint>
                           </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
                             <Component class="javax.swing.JTable" name="jTable_amortTable">
                               <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="12" style="0"/>
-                                </Property>
                                 <Property name="rowHeight" type="int" value="26"/>
                               </Properties>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout$JScrollPaneConstraintsDescription">
-                                  <JScrollPaneConstraints position="view"/>
-                                </Constraint>
-                              </Constraints>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -812,7 +775,6 @@
                 </Container>
               </SubComponents>
             </Container>
-
             <Container class="javax.swing.JPanel" name="jPanel_myTxns">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -821,9 +783,12 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabTitle="My Transactions"/>
+                  <JTabbedPaneConstraints tabName="My Transactions">
+                    <Property name="tabTitle" type="java.lang.String" value="My Transactions"/>
+                  </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
+
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
               <SubComponents>
                 <Container class="javax.swing.JPanel" name="jPanel_txnToolbar">
@@ -835,15 +800,14 @@
                       <BorderConstraints direction="North"/>
                     </Constraint>
                   </Constraints>
+
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
                     <Property name="alignment" type="int" value="4"/>
-                    <Property name="hgap" type="int" value="6"/>
-                    <Property name="vgap" type="int" value="0"/>
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JButton" name="jButton_refreshTxns">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="⟳  Refresh"/>
+                        <Property name="text" type="java.lang.String" value="&#x27f3;  Refresh"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -854,19 +818,13 @@
                       <BorderConstraints direction="Center"/>
                     </Constraint>
                   </Constraints>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Component class="javax.swing.JTable" name="buyerTxnTable">
                       <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="12" style="0"/>
-                        </Property>
                         <Property name="rowHeight" type="int" value="26"/>
                       </Properties>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout$JScrollPaneConstraintsDescription">
-                          <JScrollPaneConstraints position="view"/>
-                        </Constraint>
-                      </Constraints>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -874,13 +832,13 @@
             </Container>
           </SubComponents>
         </Container>
-
         <Container class="javax.swing.JPanel" name="jPanel3">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="33" red="0" type="rgb"/>
             </Property>
           </Properties>
+
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">

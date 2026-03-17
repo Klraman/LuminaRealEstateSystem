@@ -14,7 +14,6 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        addRegisterButton();
         setLocationRelativeTo(null);
     }
 
@@ -36,6 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
         USER = new javax.swing.JTextField();
         PASS = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -71,7 +71,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setText("WELCOME TO LUMINA HOMES");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel3.setText("USERNAME:");
+        jLabel3.setText("NAME OR EMAIL: ");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel4.setText("PASSWORD:");
@@ -83,10 +83,18 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton1.setText("LOGIN");
+        jButton1.setText("REGISTER");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton2.setText("LOGIN");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -100,21 +108,21 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(68, 68, 68))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(142, 142, 142)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(USER, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PASS, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(95, 95, 95)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(PASS, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                    .addComponent(USER))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(205, 205, 205))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,9 +138,11 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PASS, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(41, 41, 41)
-                .addComponent(jButton1)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,21 +164,27 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_USERActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String username = USER.getText().trim();
-        String password = new String(PASS.getPassword());
-        if (username.isEmpty() || password.isEmpty()) {
+        showRegisterDialog();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String identifier = USER.getText().trim();
+        String password   = new String(PASS.getPassword());
+        if (identifier.isEmpty() || password.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Please enter your credentials.");
             return;
         }
-        AppContext ctx = AppContext.getInstance();
-        MyLib.User user = ctx.authenticate(username, password, "Admin");
-        if (user == null) user = ctx.authenticate(username, password, "Agent");
-        if (user == null) user = ctx.authenticate(username, password, "Buyer");
+        AppContext ctx  = AppContext.getInstance();
+        MyLib.User user = ctx.authenticate(identifier, password);
         if (user == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Denied Access");
             return;
         }
-        javax.swing.JOptionPane.showMessageDialog(this, "Login Accepted");
+        String roleMsg;
+        if      (user instanceof MyLib.Buyer) roleMsg = "Buyer " + user.getName() + " successfully logged in.";
+        else if (user instanceof MyLib.Agent) roleMsg = "Agent " + user.getName() + " successfully logged in.";
+        else                                  roleMsg = "Admin " + user.getName() + " successfully logged in.";
+        javax.swing.JOptionPane.showMessageDialog(this, roleMsg);
         if (user instanceof MyLib.Buyer) {
             new BuyerFrame((MyLib.Buyer) user).setVisible(true);
         } else if (user instanceof MyLib.Agent) {
@@ -177,76 +193,43 @@ public class MainFrame extends javax.swing.JFrame {
             new AdminFrame((MyLib.Admin) user).setVisible(true);
         }
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void addRegisterButton() {
-        javax.swing.JButton regBtn = new javax.swing.JButton("REGISTER");
-        regBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
-        regBtn.addActionListener(e -> showRegisterDialog());
-        javax.swing.JPanel regPanel = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER));
-        regPanel.setBackground(new java.awt.Color(255, 255, 246));
-        regPanel.add(regBtn);
-        java.awt.Container cp = getContentPane();
-        cp.setLayout(new java.awt.BorderLayout());
-        cp.add(jPanel1, java.awt.BorderLayout.CENTER);
-        cp.add(regPanel, java.awt.BorderLayout.SOUTH);
-        pack();
-    }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void showRegisterDialog() {
-        javax.swing.JDialog dlg = new javax.swing.JDialog(this, "Register New Account", true);
-        dlg.setSize(420, 380);
+        javax.swing.JDialog dlg = new javax.swing.JDialog(this, "Register New Buyer Account", true);
+        dlg.setSize(400, 280);
         dlg.setLocationRelativeTo(this);
         dlg.setLayout(new java.awt.BorderLayout());
 
         javax.swing.JPanel form = new javax.swing.JPanel(new java.awt.GridLayout(0, 2, 8, 10));
         form.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 24, 10, 24));
 
-        javax.swing.JTextField  nameF   = new javax.swing.JTextField();
-        javax.swing.JTextField  emailF  = new javax.swing.JTextField();
-        javax.swing.JPasswordField passF = new javax.swing.JPasswordField();
-        javax.swing.JComboBox<String> roleC = new javax.swing.JComboBox<>(new String[]{"Agent", "Buyer"});
-        javax.swing.JTextField  budgetF = new javax.swing.JTextField("1000000");
-        javax.swing.JTextField  commF   = new javax.swing.JTextField("0.05");
-        javax.swing.JLabel budgetLbl = new javax.swing.JLabel("Budget (Php):");
-        javax.swing.JLabel commLbl   = new javax.swing.JLabel("Commission Rate:");
+        javax.swing.JTextField     nameF  = new javax.swing.JTextField();
+        javax.swing.JTextField     emailF = new javax.swing.JTextField();
+        javax.swing.JPasswordField passF  = new javax.swing.JPasswordField();
 
-        roleC.addActionListener(e -> {
-            boolean isBuyer = "Buyer".equals(roleC.getSelectedItem());
-            budgetLbl.setVisible(isBuyer); budgetF.setVisible(isBuyer);
-            commLbl.setVisible(!isBuyer);  commF.setVisible(!isBuyer);
-        });
-        commLbl.setVisible(false);
-        commF.setVisible(false);
-
-        form.add(new javax.swing.JLabel("Full Name:"));   form.add(nameF);
-        form.add(new javax.swing.JLabel("Email:"));       form.add(emailF);
-        form.add(new javax.swing.JLabel("Password:"));    form.add(passF);
-        form.add(new javax.swing.JLabel("Register As:")); form.add(roleC);
-        form.add(budgetLbl);                               form.add(budgetF);
-        form.add(commLbl);                                 form.add(commF);
+        form.add(new javax.swing.JLabel("Full Name:"));  form.add(nameF);
+        form.add(new javax.swing.JLabel("Email:"));      form.add(emailF);
+        form.add(new javax.swing.JLabel("Password:"));   form.add(passF);
 
         javax.swing.JButton submit = new javax.swing.JButton("Register");
         submit.addActionListener(e -> {
             String name  = nameF.getText().trim();
             String email = emailF.getText().trim();
             String pass  = new String(passF.getPassword());
-            String role  = (String) roleC.getSelectedItem();
             if (name.isEmpty() || email.isEmpty() || pass.isEmpty()) {
                 javax.swing.JOptionPane.showMessageDialog(dlg, "All fields are required.");
                 return;
             }
             AppContext ctx = AppContext.getInstance();
-            if ("Buyer".equals(role)) {
-                double budget = parseSafe(budgetF.getText(), 1_000_000);
-                String id = "BUY" + String.format("%03d", ctx.getBuyers().size() + 1);
-                ctx.registerBuyer(new MyLib.Buyer(name, email, pass, id, budget,
-                        MyLib.BuyerType.REGULAR, ctx.getSubdivision()));
-            } else {
-                double comm = parseSafe(commF.getText(), 0.05);
-                String id = "AGT" + String.format("%03d", ctx.getAgents().size() + 1);
-                ctx.registerAgent(new MyLib.Agent(name, email, pass, id, comm, ctx.getSubdivision()));
+            if (ctx.emailExists(email)) {
+                javax.swing.JOptionPane.showMessageDialog(dlg,
+                    "An account with this email already exists.");
+                return;
             }
+            String id = "BUY" + String.format("%03d", ctx.getBuyers().size() + 1);
+            ctx.registerBuyer(new MyLib.Buyer(name, email, pass, id, 1_000_000,
+                    MyLib.BuyerType.REGULAR, ctx.getSubdivision()));
             javax.swing.JOptionPane.showMessageDialog(dlg, "Registration successful! You may now log in.");
             dlg.dispose();
         });
@@ -256,10 +239,6 @@ public class MainFrame extends javax.swing.JFrame {
         dlg.add(form, java.awt.BorderLayout.CENTER);
         dlg.add(btnRow, java.awt.BorderLayout.SOUTH);
         dlg.setVisible(true);
-    }
-
-    private double parseSafe(String text, double def) {
-        try { return Double.parseDouble(text.trim()); } catch (NumberFormatException e) { return def; }
     }
 
     /**
@@ -301,6 +280,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField PASS;
     private javax.swing.JTextField USER;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

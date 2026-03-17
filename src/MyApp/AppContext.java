@@ -111,24 +111,29 @@ public class AppContext {
     }
 
     // ------------------------------------------------------------------
-    // Authentication
+    // Authentication — matches identifier against name OR email (case-insensitive)
     // ------------------------------------------------------------------
-    public User authenticate(String email, String password, String role) {
-        switch (role) {
-            case "Admin":
-                for (Admin a : admins)
-                    if (a.getEmail().equals(email) && a.getPassword().equals(password)) return a;
-                break;
-            case "Agent":
-                for (Agent a : agents)
-                    if (a.getEmail().equals(email) && a.getPassword().equals(password)) return a;
-                break;
-            case "Buyer":
-                for (Buyer b : buyers)
-                    if (b.getEmail().equals(email) && b.getPassword().equals(password)) return b;
-                break;
-        }
+    public User authenticate(String identifier, String password) {
+        for (Admin a : admins)
+            if ((a.getName().equalsIgnoreCase(identifier) || a.getEmail().equalsIgnoreCase(identifier))
+                    && a.getPassword().equals(password)) return a;
+        for (Agent a : agents)
+            if ((a.getName().equalsIgnoreCase(identifier) || a.getEmail().equalsIgnoreCase(identifier))
+                    && a.getPassword().equals(password)) return a;
+        for (Buyer b : buyers)
+            if ((b.getName().equalsIgnoreCase(identifier) || b.getEmail().equalsIgnoreCase(identifier))
+                    && b.getPassword().equals(password)) return b;
         return null;
+    }
+
+    // ------------------------------------------------------------------
+    // Duplicate email check — searches all user types
+    // ------------------------------------------------------------------
+    public boolean emailExists(String email) {
+        for (Admin a : admins)   if (a.getEmail().equalsIgnoreCase(email)) return true;
+        for (Agent a : agents)   if (a.getEmail().equalsIgnoreCase(email)) return true;
+        for (Buyer b : buyers)   if (b.getEmail().equalsIgnoreCase(email)) return true;
+        return false;
     }
 
     // ------------------------------------------------------------------

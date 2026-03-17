@@ -12,11 +12,11 @@ public class Lot {
         this.blkNum = blkNum;
         this.lotNum = lotNum;
         this.block = block;
-        this.transactionStatus = Status.PENDING;
+        this.transactionStatus = Status.AVAILABLE;
     }
 
     public boolean getAvailability() {
-        return transactionStatus == Status.PENDING;
+        return transactionStatus == Status.AVAILABLE;
     }
 
     public void updateStatus(Status newStatus) {

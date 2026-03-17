@@ -37,36 +37,31 @@ public class BuyerFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         mainTabs = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
-
-        // ── Browse tab components ──────────────────────────────────────────
         jPanel_browse = new javax.swing.JPanel();
         jPanel_browseFilter = new javax.swing.JPanel();
         jLabel_maxBudget = new javax.swing.JLabel();
-        buyerBudgetField = new javax.swing.JTextField(8);
+        buyerBudgetField = new javax.swing.JTextField();
         jLabel_blockFilter = new javax.swing.JLabel();
-        buyerBlockCombo = new javax.swing.JComboBox<>(new String[]{"All","1","2","3","4","5"});
+        buyerBlockCombo = new javax.swing.JComboBox();
         jLabel_floorAreaFilter = new javax.swing.JLabel();
-        jTextField_floorArea = new javax.swing.JTextField(5);
+        jTextField_floorArea = new javax.swing.JTextField();
         jLabel_lotAreaFilter = new javax.swing.JLabel();
-        jTextField_lotArea = new javax.swing.JTextField(5);
+        jTextField_lotArea = new javax.swing.JTextField();
         jButton_applyFilter = new javax.swing.JButton();
         jButton_showAll = new javax.swing.JButton();
         jScrollPane_browse = new javax.swing.JScrollPane();
         browseLotTable = new javax.swing.JTable();
         jPanel_browseSouth = new javax.swing.JPanel();
         jButton_selectLot = new javax.swing.JButton();
-
-        // ── Purchase tab components ────────────────────────────────────────
         jPanel_purchase = new javax.swing.JPanel();
         jSplitPane_purchase = new javax.swing.JSplitPane();
         jScrollPane_purchaseLeft = new javax.swing.JScrollPane();
         jPanel_purchaseLeft = new javax.swing.JPanel();
         jLabel_selLotHeader = new javax.swing.JLabel();
         jLabel_blk = new javax.swing.JLabel();
-        jComboBox_selBlock = new javax.swing.JComboBox<>(new String[]{"\u2014","1","2","3","4","5"});
+        jComboBox_selBlock = new javax.swing.JComboBox();
         jLabel_lot = new javax.swing.JLabel();
-        jComboBox_selLot = new javax.swing.JComboBox<>(new Integer[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20});
+        jComboBox_selLot = new javax.swing.JComboBox();
         jLabel_discHeader = new javax.swing.JLabel();
         jCheckBox_senior = new javax.swing.JCheckBox();
         jCheckBox_pwd = new javax.swing.JCheckBox();
@@ -74,9 +69,10 @@ public class BuyerFrame extends javax.swing.JFrame {
         jCheckBox_veteran = new javax.swing.JCheckBox();
         jLabel_payHeader = new javax.swing.JLabel();
         jLabel_payMethod = new javax.swing.JLabel();
-        jComboBox_payMethod = new javax.swing.JComboBox<>(new String[]{"Cash","Bank","Pag-IBIG","EMI (In-House)"});
+        jComboBox_payMethod = new javax.swing.JComboBox();
         jLabel_loanTerm = new javax.swing.JLabel();
-        jComboBox_loanTerm = new javax.swing.JComboBox<>(new Integer[]{5,10,15,20,25,30});
+        jComboBox_loanTerm = new javax.swing.JComboBox();
+        jButton_reserve = new javax.swing.JButton();
         jButton_submitToAgent = new javax.swing.JButton();
         jPanel_purchaseDetail = new javax.swing.JPanel();
         jLabel_modelName = new javax.swing.JLabel();
@@ -101,25 +97,21 @@ public class BuyerFrame extends javax.swing.JFrame {
         jLabel_monthlyAmort = new javax.swing.JLabel();
         jScrollPane_amort = new javax.swing.JScrollPane();
         jTable_amortTable = new javax.swing.JTable();
-
-        // ── My Transactions tab components ─────────────────────────────────
         jPanel_myTxns = new javax.swing.JPanel();
         jPanel_txnToolbar = new javax.swing.JPanel();
         jButton_refreshTxns = new javax.swing.JButton();
         jScrollPane_buyerTxns = new javax.swing.JScrollPane();
         buyerTxnTable = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
 
-        // ── Frame setup ────────────────────────────────────────────────────
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        // ── Header panel (jPanel5) ─────────────────────────────────────────
         jPanel5.setBackground(new java.awt.Color(0, 51, 204));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("LUMINA HOMES");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(190, 215, 240));
         jLabel6.setText("Welcome");
 
@@ -158,121 +150,126 @@ public class BuyerFrame extends javax.swing.JFrame {
 
         mainTabs.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
-        // ── Browse tab ─────────────────────────────────────────────────────
+        jPanel_browse.setBackground(new java.awt.Color(248, 249, 252));
         jPanel_browse.setLayout(new java.awt.BorderLayout());
-        jPanel_browse.setBackground(BG);
-        jPanel_browse.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
-        jPanel_browseFilter.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 4));
         jPanel_browseFilter.setBackground(new java.awt.Color(235, 240, 248));
-        jPanel_browseFilter.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(210, 218, 230)));
+        jPanel_browseFilter.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        jLabel_maxBudget.setText("Max Budget (\u20b1):");
+        jLabel_maxBudget.setText("Max Budget (₱):");
+        jPanel_browseFilter.add(jLabel_maxBudget);
+
+        buyerBudgetField.setColumns(8);
+        jPanel_browseFilter.add(buyerBudgetField);
+
         jLabel_blockFilter.setText("Block:");
-        jLabel_floorAreaFilter.setText("Floor Area \u2265 sqm:");
-        jLabel_lotAreaFilter.setText("Lot Area \u2265 sqm:");
+        jPanel_browseFilter.add(jLabel_blockFilter);
+
+        buyerBlockCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "1", "2", "3", "4", "5" }));
+        jPanel_browseFilter.add(buyerBlockCombo);
+
+        jLabel_floorAreaFilter.setText("Floor Area ≥ sqm:");
+        jPanel_browseFilter.add(jLabel_floorAreaFilter);
+
+        jTextField_floorArea.setColumns(5);
+        jPanel_browseFilter.add(jTextField_floorArea);
+
+        jLabel_lotAreaFilter.setText("Lot Area ≥ sqm:");
+        jPanel_browseFilter.add(jLabel_lotAreaFilter);
+
+        jTextField_lotArea.setColumns(5);
+        jPanel_browseFilter.add(jTextField_lotArea);
 
         jButton_applyFilter.setText("Apply Filters");
-        jButton_showAll.setText("Show All");
-
-        jPanel_browseFilter.add(jLabel_maxBudget);
-        jPanel_browseFilter.add(buyerBudgetField);
-        jPanel_browseFilter.add(jLabel_blockFilter);
-        jPanel_browseFilter.add(buyerBlockCombo);
-        jPanel_browseFilter.add(jLabel_floorAreaFilter);
-        jPanel_browseFilter.add(jTextField_floorArea);
-        jPanel_browseFilter.add(jLabel_lotAreaFilter);
-        jPanel_browseFilter.add(jTextField_lotArea);
         jPanel_browseFilter.add(jButton_applyFilter);
+
+        jButton_showAll.setText("Show All");
         jPanel_browseFilter.add(jButton_showAll);
 
-        browseLotTable.setModel(new javax.swing.table.DefaultTableModel(
-            new String[]{"Block","Lot #","House Model","Total Contract Price","Floor Area","Lot Area","Phase","Status"}, 0) {
-            @Override public boolean isCellEditable(int r, int c) { return false; }
-        });
-        browseLotTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jPanel_browse.add(jPanel_browseFilter, java.awt.BorderLayout.NORTH);
+
         browseLotTable.setRowHeight(26);
-        browseLotTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        browseLotTable.setGridColor(new java.awt.Color(220, 220, 220));
-        browseLotTable.setShowGrid(true);
-        browseLotTable.setSelectionBackground(new java.awt.Color(210, 228, 252));
-        browseLotTable.getTableHeader().setFont(new java.awt.Font("Segoe UI", 1, 12));
-        browseLotTable.getTableHeader().setBackground(new java.awt.Color(0, 51, 204));
-        browseLotTable.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
-        browseLotTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane_browse.setViewportView(browseLotTable);
 
-        jPanel_browseSouth.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 4));
+        jPanel_browse.add(jScrollPane_browse, java.awt.BorderLayout.CENTER);
+
         jPanel_browseSouth.setOpaque(false);
-        jButton_selectLot.setText("Select Lot \u2192 Go to Purchase");
+        jPanel_browseSouth.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING));
+
+        jButton_selectLot.setText("Select Lot → Go to Purchase");
         jPanel_browseSouth.add(jButton_selectLot);
 
-        jPanel_browse.add(jPanel_browseFilter, java.awt.BorderLayout.NORTH);
-        jPanel_browse.add(jScrollPane_browse, java.awt.BorderLayout.CENTER);
         jPanel_browse.add(jPanel_browseSouth, java.awt.BorderLayout.SOUTH);
 
         mainTabs.addTab("Browse", jPanel_browse);
 
-        // ── Purchase tab ───────────────────────────────────────────────────
+        jPanel_purchase.setBackground(new java.awt.Color(248, 249, 252));
         jPanel_purchase.setLayout(new java.awt.BorderLayout());
-        jPanel_purchase.setBackground(BG);
 
-        // Left form panel
-        jPanel_purchaseLeft.setBackground(BG);
-        jPanel_purchaseLeft.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 14, 14, 10));
+        jSplitPane_purchase.setDividerLocation(300);
+        jSplitPane_purchase.setDividerSize(4);
+        jSplitPane_purchase.setResizeWeight(0.28);
 
-        jLabel_selLotHeader.setText("Select a Lot");
+        jPanel_purchaseLeft.setBackground(new java.awt.Color(248, 249, 252));
+
         jLabel_selLotHeader.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel_selLotHeader.setForeground(new java.awt.Color(0, 51, 204));
-        jLabel_selLotHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 51, 204)));
+        jLabel_selLotHeader.setText("Select a Lot");
 
-        jLabel_blk.setText("Block:");
         jLabel_blk.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_blk.setPreferredSize(new java.awt.Dimension(130, 26));
+        jLabel_blk.setText("Block:");
 
-        jLabel_lot.setText("Lot:");
+        jComboBox_selBlock.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "—", "1", "2", "3", "4", "5" }));
+
         jLabel_lot.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_lot.setPreferredSize(new java.awt.Dimension(130, 26));
+        jLabel_lot.setText("Lot:");
 
-        jLabel_discHeader.setText("Discount");
+        jComboBox_selLot.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }));
+
         jLabel_discHeader.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel_discHeader.setForeground(new java.awt.Color(0, 51, 204));
-        jLabel_discHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 51, 204)));
+        jLabel_discHeader.setText("Discount");
 
-        jCheckBox_senior.setText("Senior Citizen \u2014 20%");
         jCheckBox_senior.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jCheckBox_senior.setOpaque(false);
+        jCheckBox_senior.setText("Senior Citizen — 20%");
 
-        jCheckBox_pwd.setText("PWD \u2014 20%");
         jCheckBox_pwd.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jCheckBox_pwd.setOpaque(false);
+        jCheckBox_pwd.setText("PWD — 20%");
 
-        jCheckBox_firstTime.setText("First Time Buyer \u2014 5%");
         jCheckBox_firstTime.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jCheckBox_firstTime.setOpaque(false);
+        jCheckBox_firstTime.setText("First Time Buyer — 5%");
 
-        jCheckBox_veteran.setText("Veteran \u2014 10%");
         jCheckBox_veteran.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jCheckBox_veteran.setOpaque(false);
+        jCheckBox_veteran.setText("Veteran — 10%");
 
-        jLabel_payHeader.setText("Payment Options");
         jLabel_payHeader.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel_payHeader.setForeground(new java.awt.Color(0, 51, 204));
-        jLabel_payHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 51, 204)));
+        jLabel_payHeader.setText("Payment Options");
 
-        jLabel_payMethod.setText("Payment Method:");
         jLabel_payMethod.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_payMethod.setPreferredSize(new java.awt.Dimension(130, 26));
+        jLabel_payMethod.setText("Payment Method:");
 
-        jLabel_loanTerm.setText("Loan Term (yrs):");
+        jComboBox_payMethod.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash", "Bank", "Pag-IBIG", "EMI (In-House)" }));
+
         jLabel_loanTerm.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_loanTerm.setPreferredSize(new java.awt.Dimension(130, 26));
+        jLabel_loanTerm.setText("Loan Term (yrs):");
 
-        jButton_submitToAgent.setText("Forward to Agent");
-        jButton_submitToAgent.setEnabled(false);
-        jButton_submitToAgent.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jComboBox_loanTerm.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "5", "10", "15", "20", "25", "30" }));
+
+        jButton_reserve.setBackground(new java.awt.Color(0, 120, 60));
+        jButton_reserve.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jButton_reserve.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_reserve.setText("Reserve Lot");
+        jButton_reserve.setEnabled(false);
+        jButton_reserve.setBorderPainted(false);
+        jButton_reserve.setFocusPainted(false);
+
         jButton_submitToAgent.setBackground(new java.awt.Color(0, 51, 204));
+        jButton_submitToAgent.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jButton_submitToAgent.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_submitToAgent.setText("Forward to Agent \u2014 Buy");
+        jButton_submitToAgent.setEnabled(false);
+        jButton_submitToAgent.setBorderPainted(false);
         jButton_submitToAgent.setFocusPainted(false);
 
         javax.swing.GroupLayout jPanel_purchaseLeftLayout = new javax.swing.GroupLayout(jPanel_purchaseLeft);
@@ -302,6 +299,7 @@ public class BuyerFrame extends javax.swing.JFrame {
                 .addComponent(jLabel_loanTerm, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox_loanTerm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jButton_reserve, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton_submitToAgent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel_purchaseLeftLayout.setVerticalGroup(
@@ -337,160 +335,125 @@ public class BuyerFrame extends javax.swing.JFrame {
                     .addComponent(jLabel_loanTerm, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox_loanTerm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
+                .addComponent(jButton_reserve)
+                .addGap(4, 4, 4)
                 .addComponent(jButton_submitToAgent)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jScrollPane_purchaseLeft.setViewportView(jPanel_purchaseLeft);
 
-        // Right detail panel
-        jPanel_purchaseDetail.setLayout(new java.awt.BorderLayout(0, 10));
-        jPanel_purchaseDetail.setBackground(java.awt.Color.WHITE);
-        jPanel_purchaseDetail.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 16, 14, 16));
+        jSplitPane_purchase.setLeftComponent(jScrollPane_purchaseLeft);
 
-        jLabel_modelName.setText("Select a block and lot to see details");
+        jPanel_purchaseDetail.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_purchaseDetail.setLayout(new java.awt.BorderLayout());
+
         jLabel_modelName.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel_modelName.setForeground(java.awt.Color.GRAY);
+        jLabel_modelName.setForeground(new java.awt.Color(128, 128, 128));
+        jLabel_modelName.setText("Select a block and lot to see details");
+        jPanel_purchaseDetail.add(jLabel_modelName, java.awt.BorderLayout.NORTH);
 
-        jPanel_detailGrid.setLayout(new java.awt.GridLayout(0, 2, 8, 6));
-        jPanel_detailGrid.setBackground(java.awt.Color.WHITE);
-        jPanel_detailGrid.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(210, 218, 230)),
-            javax.swing.BorderFactory.createEmptyBorder(10, 12, 10, 12)));
+        jPanel_detailGrid.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_detailGrid.setLayout(new java.awt.GridLayout(0, 2));
 
-        jLabel_tcpKey.setText("TCP:");
         jLabel_tcpKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_tcp.setText("\u2014");
-        jLabel_tcp.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel_tcpKey.setText("TCP:");
+        jPanel_detailGrid.add(jLabel_tcpKey);
 
-        jLabel_discAmtKey.setText("Discount:");
+        jLabel_tcp.setText("—");
+        jPanel_detailGrid.add(jLabel_tcp);
+
         jLabel_discAmtKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_discountAmt.setText("\u2014");
-        jLabel_discountAmt.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel_discAmtKey.setText("Discount:");
+        jPanel_detailGrid.add(jLabel_discAmtKey);
 
-        jLabel_finalTcpKey.setText("Final TCP:");
+        jLabel_discountAmt.setText("—");
+        jPanel_detailGrid.add(jLabel_discountAmt);
+
         jLabel_finalTcpKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_finalTcp.setText("\u2014");
+        jLabel_finalTcpKey.setText("Final TCP:");
+        jPanel_detailGrid.add(jLabel_finalTcpKey);
+
         jLabel_finalTcp.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel_finalTcp.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel_finalTcp.setText("—");
+        jPanel_detailGrid.add(jLabel_finalTcp);
 
-        jLabel_resFeeKey.setText("Reservation Fee:");
         jLabel_resFeeKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_resFee.setText("\u2014");
-        jLabel_resFee.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel_resFeeKey.setText("Reservation Fee:");
+        jPanel_detailGrid.add(jLabel_resFeeKey);
 
-        jLabel_downPayKey.setText("Down Payment:");
+        jLabel_resFee.setText("—");
+        jPanel_detailGrid.add(jLabel_resFee);
+
         jLabel_downPayKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_downPayment.setText("\u2014");
-        jLabel_downPayment.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel_downPayKey.setText("Down Payment:");
+        jPanel_detailGrid.add(jLabel_downPayKey);
 
-        jLabel_dpTargetKey.setText("DP Monthly Target:");
+        jLabel_downPayment.setText("—");
+        jPanel_detailGrid.add(jLabel_downPayment);
+
         jLabel_dpTargetKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_dpTarget.setText("\u2014");
-        jLabel_dpTarget.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel_dpTargetKey.setText("DP Monthly Target:");
+        jPanel_detailGrid.add(jLabel_dpTargetKey);
 
-        jLabel_dpPeriodKey.setText("DP Period:");
+        jLabel_dpTarget.setText("—");
+        jPanel_detailGrid.add(jLabel_dpTarget);
+
         jLabel_dpPeriodKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_dpPeriod.setText("\u2014");
-        jLabel_dpPeriod.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel_dpPeriodKey.setText("DP Period:");
+        jPanel_detailGrid.add(jLabel_dpPeriodKey);
 
-        jLabel_interestKey.setText("Interest Rate:");
+        jLabel_dpPeriod.setText("—");
+        jPanel_detailGrid.add(jLabel_dpPeriod);
+
         jLabel_interestKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_interestRate.setText("\u2014");
-        jLabel_interestRate.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel_interestKey.setText("Interest Rate:");
+        jPanel_detailGrid.add(jLabel_interestKey);
 
-        jLabel_monthlyKey.setText("Monthly Amortization:");
+        jLabel_interestRate.setText("—");
+        jPanel_detailGrid.add(jLabel_interestRate);
+
         jLabel_monthlyKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_monthlyAmort.setText("\u2014");
+        jLabel_monthlyKey.setText("Monthly Amortization:");
+        jPanel_detailGrid.add(jLabel_monthlyKey);
+
         jLabel_monthlyAmort.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel_monthlyAmort.setForeground(new java.awt.Color(0, 120, 0));
-
-        jPanel_detailGrid.add(jLabel_tcpKey);
-        jPanel_detailGrid.add(jLabel_tcp);
-        jPanel_detailGrid.add(jLabel_discAmtKey);
-        jPanel_detailGrid.add(jLabel_discountAmt);
-        jPanel_detailGrid.add(jLabel_finalTcpKey);
-        jPanel_detailGrid.add(jLabel_finalTcp);
-        jPanel_detailGrid.add(jLabel_resFeeKey);
-        jPanel_detailGrid.add(jLabel_resFee);
-        jPanel_detailGrid.add(jLabel_downPayKey);
-        jPanel_detailGrid.add(jLabel_downPayment);
-        jPanel_detailGrid.add(jLabel_dpTargetKey);
-        jPanel_detailGrid.add(jLabel_dpTarget);
-        jPanel_detailGrid.add(jLabel_dpPeriodKey);
-        jPanel_detailGrid.add(jLabel_dpPeriod);
-        jPanel_detailGrid.add(jLabel_interestKey);
-        jPanel_detailGrid.add(jLabel_interestRate);
-        jPanel_detailGrid.add(jLabel_monthlyKey);
+        jLabel_monthlyAmort.setText("—");
         jPanel_detailGrid.add(jLabel_monthlyAmort);
 
-        jTable_amortTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object[][]{
-                {"\u2014","\u2014 "},{"\u2014","\u2014 "},{"\u2014","\u2014 "},
-                {"\u2014","\u2014 "},{"\u2014","\u2014 "},{"\u2014","\u2014 "}
-            },
-            new String[]{"Loan Term","Monthly Payment (\u20b1)"}) {
-            @Override public boolean isCellEditable(int r, int c) { return false; }
-        });
-        jTable_amortTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jTable_amortTable.setRowHeight(26);
-        jTable_amortTable.setGridColor(new java.awt.Color(220, 220, 220));
-        jTable_amortTable.setShowGrid(true);
-        jTable_amortTable.setSelectionBackground(new java.awt.Color(210, 228, 252));
-        jTable_amortTable.getTableHeader().setFont(new java.awt.Font("Segoe UI", 1, 12));
-        jTable_amortTable.getTableHeader().setBackground(new java.awt.Color(0, 51, 204));
-        jTable_amortTable.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
-        jTable_amortTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane_amort.setViewportView(jTable_amortTable);
-        jScrollPane_amort.setPreferredSize(new java.awt.Dimension(0, 195));
-
-        jPanel_purchaseDetail.add(jLabel_modelName, java.awt.BorderLayout.NORTH);
         jPanel_purchaseDetail.add(jPanel_detailGrid, java.awt.BorderLayout.CENTER);
+
+        jTable_amortTable.setRowHeight(26);
+        jScrollPane_amort.setViewportView(jTable_amortTable);
+
         jPanel_purchaseDetail.add(jScrollPane_amort, java.awt.BorderLayout.SOUTH);
 
-        jSplitPane_purchase.setOrientation(javax.swing.JSplitPane.HORIZONTAL_SPLIT);
-        jSplitPane_purchase.setDividerLocation(300);
-        jSplitPane_purchase.setResizeWeight(0.28);
-        jSplitPane_purchase.setDividerSize(4);
-        jSplitPane_purchase.setBorder(null);
-        jSplitPane_purchase.setLeftComponent(jScrollPane_purchaseLeft);
         jSplitPane_purchase.setRightComponent(jPanel_purchaseDetail);
 
         jPanel_purchase.add(jSplitPane_purchase, java.awt.BorderLayout.CENTER);
 
         mainTabs.addTab("Purchase", jPanel_purchase);
 
-        // ── My Transactions tab ────────────────────────────────────────────
+        jPanel_myTxns.setBackground(new java.awt.Color(248, 249, 252));
         jPanel_myTxns.setLayout(new java.awt.BorderLayout());
-        jPanel_myTxns.setBackground(BG);
-        jPanel_myTxns.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
-        jPanel_txnToolbar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 0));
         jPanel_txnToolbar.setOpaque(false);
-        jButton_refreshTxns.setText("\u27f3  Refresh");
+        jPanel_txnToolbar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING));
+
+        jButton_refreshTxns.setText("⟳  Refresh");
         jPanel_txnToolbar.add(jButton_refreshTxns);
 
-        buyerTxnTable.setModel(new javax.swing.table.DefaultTableModel(
-            new String[]{"TXN ID","Block","Lot #","Model","Final TCP","Payment","Loan Term","Status","Agent","Remark"}, 0) {
-            @Override public boolean isCellEditable(int r, int c) { return false; }
-        });
-        buyerTxnTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jPanel_myTxns.add(jPanel_txnToolbar, java.awt.BorderLayout.NORTH);
+
         buyerTxnTable.setRowHeight(26);
-        buyerTxnTable.setGridColor(new java.awt.Color(220, 220, 220));
-        buyerTxnTable.setShowGrid(true);
-        buyerTxnTable.setSelectionBackground(new java.awt.Color(210, 228, 252));
-        buyerTxnTable.getTableHeader().setFont(new java.awt.Font("Segoe UI", 1, 12));
-        buyerTxnTable.getTableHeader().setBackground(new java.awt.Color(0, 51, 204));
-        buyerTxnTable.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
-        buyerTxnTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane_buyerTxns.setViewportView(buyerTxnTable);
 
-        jPanel_myTxns.add(jPanel_txnToolbar, java.awt.BorderLayout.NORTH);
         jPanel_myTxns.add(jScrollPane_buyerTxns, java.awt.BorderLayout.CENTER);
 
         mainTabs.addTab("My Transactions", jPanel_myTxns);
 
-        // ── Status bar (jPanel3) ───────────────────────────────────────────
         jPanel3.setBackground(new java.awt.Color(0, 51, 204));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -504,7 +467,6 @@ public class BuyerFrame extends javax.swing.JFrame {
             .addGap(0, 28, Short.MAX_VALUE)
         );
 
-        // ── Outer panel (jPanel1) ──────────────────────────────────────────
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -518,7 +480,7 @@ public class BuyerFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                .addComponent(mainTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 580, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -562,6 +524,25 @@ public class BuyerFrame extends javax.swing.JFrame {
         jLabel6.setText(buyer.getName() + "  |  Buyer");
         statusLabel.setText("  " + buyer.getName() + "  |  " + java.time.LocalDate.now());
 
+        // Build table models with columns and attach to tables (AgentFrame pattern)
+        browseLotTable.setModel(new javax.swing.table.DefaultTableModel(
+            new String[]{"Block","Lot #","House Model","Total Contract Price","Floor Area","Lot Area","Phase","Status"}, 0) {
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+        });
+
+        javax.swing.table.DefaultTableModel amortModel = new javax.swing.table.DefaultTableModel(
+            new String[]{"Loan Term","Monthly Payment (\u20b1)"}, 0) {
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+        };
+        for (int yr : new int[]{5, 10, 15, 20, 25, 30})
+            amortModel.addRow(new Object[]{yr + " years", "\u2014 "});
+        jTable_amortTable.setModel(amortModel);
+
+        buyerTxnTable.setModel(new javax.swing.table.DefaultTableModel(
+            new String[]{"TXN ID","Block","Lot #","Model","Final TCP","Payment","Loan Term","Status","Reserved Until","Agent","Remark"}, 0) {
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+        });
+
         // Action listeners
         jButton_applyFilter.addActionListener(e -> applyBuyerFilter());
         jButton_showAll.addActionListener(e -> {
@@ -576,7 +557,7 @@ public class BuyerFrame extends javax.swing.JFrame {
             if (row < 0) { showMsg("Please select a lot first."); return; }
             MyLib.Lot lot = buyerCurrentLots.get(row);
             jComboBox_selBlock.setSelectedItem(String.valueOf(lot.getBlkNum()));
-            jComboBox_selLot.setSelectedItem(lot.getLotNum());
+            jComboBox_selLot.setSelectedItem(String.valueOf(lot.getLotNum()));
             mainTabs.setSelectedIndex(1);
         });
         jComboBox_selBlock.addActionListener(e -> refreshPurchaseDetails());
@@ -598,6 +579,7 @@ public class BuyerFrame extends javax.swing.JFrame {
         jCheckBox_pwd.addItemListener(discListener);
         jCheckBox_firstTime.addItemListener(discListener);
         jCheckBox_veteran.addItemListener(discListener);
+        jButton_reserve.addActionListener(e -> reserveLot());
         jButton_submitToAgent.addActionListener(e -> submitPurchaseToAgent());
         jButton_refreshTxns.addActionListener(e -> refreshBuyerTxnTable());
 
@@ -608,8 +590,17 @@ public class BuyerFrame extends javax.swing.JFrame {
         setColWidths(jTable_amortTable, 130, 200);
         jTable_amortTable.setPreferredScrollableViewportSize(new java.awt.Dimension(330, 195));
         styleTable(buyerTxnTable);
-        setColWidths(buyerTxnTable, 100, 50, 50, 140, 140, 110, 70, 85, 120, 140);
+        setColWidths(buyerTxnTable, 100, 50, 50, 140, 140, 110, 70, 85, 110, 120, 140);
         buyerTxnTable.setDefaultRenderer(Object.class, statusColorRenderer(7));
+
+        // Auto-select discount checkbox based on buyer's BuyerType
+        switch (buyer.getBuyerType()) {
+            case SENIOR_CITIZEN:   jCheckBox_senior.setSelected(true);    break;
+            case PWD:              jCheckBox_pwd.setSelected(true);        break;
+            case FIRST_TIME_BUYER: jCheckBox_firstTime.setSelected(true); break;
+            case VETERAN:          jCheckBox_veteran.setSelected(true);    break;
+            default: break; // REGULAR: no discount
+        }
 
         // Initial data
         populateBrowseTable(buyer.viewAvailableLots());
@@ -682,17 +673,19 @@ public class BuyerFrame extends javax.swing.JFrame {
         String blkSel = (String) jComboBox_selBlock.getSelectedItem();
         if ("\u2014".equals(blkSel)) {
             clearPurchaseDetails();
+            jButton_reserve.setEnabled(false);
             jButton_submitToAgent.setEnabled(false);
             return;
         }
         int blk    = Integer.parseInt(blkSel);
-        int lotNum = (Integer) jComboBox_selLot.getSelectedItem();
+        int lotNum = Integer.parseInt((String) jComboBox_selLot.getSelectedItem());
         MyLib.Lot lot = AppContext.getInstance().getSubdivision().findLot(blk, lotNum);
         if (lot == null || !lot.getAvailability()) {
             clearPurchaseDetails();
             jLabel_modelName.setText("Block " + blk + " Lot " + lotNum
                 + (lot != null ? " \u2014 not available (" + lot.getTransactionStatus() + ")" : " \u2014 not found"));
             jLabel_modelName.setForeground(new java.awt.Color(180, 0, 0));
+            jButton_reserve.setEnabled(false);
             jButton_submitToAgent.setEnabled(false);
             return;
         }
@@ -701,6 +694,7 @@ public class BuyerFrame extends javax.swing.JFrame {
             clearPurchaseDetails();
             jLabel_modelName.setText("Block " + blk + " Lot " + lotNum + " \u2014 no model assigned");
             jLabel_modelName.setForeground(java.awt.Color.GRAY);
+            jButton_reserve.setEnabled(false);
             jButton_submitToAgent.setEnabled(false);
             return;
         }
@@ -735,6 +729,7 @@ public class BuyerFrame extends javax.swing.JFrame {
             jLabel_monthlyAmort.setText("Full Payment: \u20b1" + String.format("%,.2f", finalTcp));
         } else {
             if (jComboBox_loanTerm.getSelectedItem() == null) {
+                jButton_reserve.setEnabled(true);
                 jButton_submitToAgent.setEnabled(true);
                 return;
             }
@@ -753,6 +748,7 @@ public class BuyerFrame extends javax.swing.JFrame {
                 if (terms[i] == term) { jTable_amortTable.setRowSelectionInterval(i, i); break; }
         }
 
+        jButton_reserve.setEnabled(true);
         jButton_submitToAgent.setEnabled(true);
     }
 
@@ -829,7 +825,7 @@ public class BuyerFrame extends javax.swing.JFrame {
         String blkSel = (String) jComboBox_selBlock.getSelectedItem();
         if ("\u2014".equals(blkSel)) return;
         int blk    = Integer.parseInt(blkSel);
-        int lotNum = (Integer) jComboBox_selLot.getSelectedItem();
+        int lotNum = Integer.parseInt((String) jComboBox_selLot.getSelectedItem());
         AppContext ctx = AppContext.getInstance();
         MyLib.Lot lot = ctx.getSubdivision().findLot(blk, lotNum);
         if (lot == null || !lot.getAvailability()) {
@@ -846,6 +842,7 @@ public class BuyerFrame extends javax.swing.JFrame {
         MyLib.PaymentMethod pm = buildPurchasePaymentMethod(loanTerm, lot);
 
         MyLib.Transaction txn = new MyLib.Transaction(buyer, lot, pm, disc);
+        txn.setTransactionType("BUY");
         txn.setTransactionStatus(MyLib.Status.PENDING);
         txn.setAssignedAgent(assignedAgent);
         txn.setLoanTerm(loanTerm);
@@ -857,6 +854,45 @@ public class BuyerFrame extends javax.swing.JFrame {
 
         showMsg("Submitted! Transaction #" + txn.getTransactionID()
             + " forwarded to " + assignedAgent.getName() + ".");
+
+        jComboBox_selBlock.setSelectedIndex(0);
+        jCheckBox_senior.setSelected(false);
+        jCheckBox_pwd.setSelected(false);
+        jCheckBox_firstTime.setSelected(false);
+        jCheckBox_veteran.setSelected(false);
+        populateBrowseTable(buyer.viewAvailableLots());
+        refreshBuyerTxnTable();
+        mainTabs.setSelectedIndex(2);
+    }
+
+    private void reserveLot() {
+        String blkSel = (String) jComboBox_selBlock.getSelectedItem();
+        if ("\u2014".equals(blkSel)) return;
+        int blk    = Integer.parseInt(blkSel);
+        int lotNum = Integer.parseInt((String) jComboBox_selLot.getSelectedItem());
+        AppContext ctx = AppContext.getInstance();
+        MyLib.Lot lot = ctx.getSubdivision().findLot(blk, lotNum);
+        if (lot == null || !lot.getAvailability()) {
+            showMsg("This lot is no longer available."); refreshPurchaseDetails(); return;
+        }
+        java.util.List<MyLib.Agent> agents = ctx.getAgents();
+        if (agents.isEmpty()) { showMsg("No agents available."); return; }
+
+        MyLib.Agent assignedAgent = agents.get(0);
+        MyLib.Discount disc = buildPurchaseDiscount();
+
+        MyLib.Transaction txn = new MyLib.Transaction(buyer, lot, null, disc);
+        txn.setTransactionType("RESERVE");   // auto-sets reservedUntil = today + 30 days
+        txn.setTransactionStatus(MyLib.Status.RESERVED);
+        txn.setAssignedAgent(assignedAgent);
+
+        lot.updateStatus(MyLib.Status.RESERVED);
+        buyer.addTransaction(txn);
+        assignedAgent.addPendingTransaction(txn);
+        ctx.addTransaction(txn);
+
+        showMsg("Reserved! Block " + blk + " Lot " + lotNum
+            + " is reserved until " + txn.getReservedUntil() + ".");
 
         jComboBox_selBlock.setSelectedIndex(0);
         jCheckBox_senior.setSelected(false);
@@ -886,6 +922,8 @@ public class BuyerFrame extends javax.swing.JFrame {
         m.setRowCount(0);
         for (MyLib.Transaction t : buyer.viewMyTransactions()) {
             MyLib.Lot lot = t.getLot();
+            String reservedUntil = "RESERVE".equals(t.getTransactionType()) && t.getReservedUntil() != null
+                    ? t.getReservedUntil() : "\u2014";
             m.addRow(new Object[]{
                 t.getTransactionID(),
                 lot != null ? lot.getBlkNum() : "\u2014",
@@ -895,6 +933,7 @@ public class BuyerFrame extends javax.swing.JFrame {
                 paymentLabel(t.getPaymentMethod()),
                 t.getLoanTerm() > 0 ? t.getLoanTerm() + " yr" : "\u2014",
                 t.getTransactionStatus(),
+                reservedUntil,
                 t.getAssignedAgent() != null ? t.getAssignedAgent().getName() : "\u2014",
                 t.getRemark() != null && !t.getRemark().isEmpty() ? t.getRemark() : "\u2014"
             });
@@ -929,10 +968,12 @@ public class BuyerFrame extends javax.swing.JFrame {
                 if (!sel) setBackground(row % 2 == 0 ? java.awt.Color.WHITE : new java.awt.Color(240, 245, 252));
                 if (col == statusCol && val != null) {
                     switch (val.toString()) {
+                        case "AVAILABLE": setForeground(new java.awt.Color(0, 130, 0)); break;
                         case "PENDING":   setForeground(java.awt.Color.DARK_GRAY); break;
                         case "SUBMITTED": setForeground(new java.awt.Color(0, 80, 200)); break;
                         case "RESERVED":  setForeground(new java.awt.Color(180, 110, 0)); break;
                         case "COMPLETED": setForeground(new java.awt.Color(0, 130, 0)); break;
+                        case "CANCELLED": setForeground(new java.awt.Color(120, 120, 120)); break;
                         case "REJECTED":  setForeground(new java.awt.Color(180, 0, 0)); break;
                         default:          setForeground(java.awt.Color.DARK_GRAY); break;
                     }
@@ -960,24 +1001,25 @@ public class BuyerFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable browseLotTable;
+    private javax.swing.JComboBox buyerBlockCombo;
+    private javax.swing.JTextField buyerBudgetField;
+    private javax.swing.JTable buyerTxnTable;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton_applyFilter;
     private javax.swing.JButton jButton_refreshTxns;
+    private javax.swing.JButton jButton_reserve;
     private javax.swing.JButton jButton_selectLot;
     private javax.swing.JButton jButton_showAll;
     private javax.swing.JButton jButton_submitToAgent;
-    private javax.swing.JComboBox<String> buyerBlockCombo;
-    private javax.swing.JTextField buyerBudgetField;
-    private javax.swing.JTable browseLotTable;
-    private javax.swing.JTable buyerTxnTable;
     private javax.swing.JCheckBox jCheckBox_firstTime;
     private javax.swing.JCheckBox jCheckBox_pwd;
     private javax.swing.JCheckBox jCheckBox_senior;
     private javax.swing.JCheckBox jCheckBox_veteran;
-    private javax.swing.JComboBox<String> jComboBox_payMethod;
-    private javax.swing.JComboBox<String> jComboBox_selBlock;
-    private javax.swing.JComboBox<Integer> jComboBox_loanTerm;
-    private javax.swing.JComboBox<Integer> jComboBox_selLot;
+    private javax.swing.JComboBox jComboBox_loanTerm;
+    private javax.swing.JComboBox jComboBox_payMethod;
+    private javax.swing.JComboBox jComboBox_selBlock;
+    private javax.swing.JComboBox jComboBox_selLot;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel_blk;
@@ -996,9 +1038,9 @@ public class BuyerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_floorAreaFilter;
     private javax.swing.JLabel jLabel_interestKey;
     private javax.swing.JLabel jLabel_interestRate;
+    private javax.swing.JLabel jLabel_loanTerm;
     private javax.swing.JLabel jLabel_lot;
     private javax.swing.JLabel jLabel_lotAreaFilter;
-    private javax.swing.JLabel jLabel_loanTerm;
     private javax.swing.JLabel jLabel_maxBudget;
     private javax.swing.JLabel jLabel_modelName;
     private javax.swing.JLabel jLabel_monthlyAmort;

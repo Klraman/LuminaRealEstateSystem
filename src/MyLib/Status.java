@@ -1,7 +1,8 @@
 package MyLib;
 
 public enum Status {
-    PENDING,     // lot = available; transaction = awaiting agent
+    AVAILABLE,   // lot only: lot is open for purchase
+    PENDING,     // transaction only: awaiting agent approval
     SUBMITTED,   // lot only: buyer submitted, agent hasn't reviewed yet
     RESERVED,
     COMPLETED,

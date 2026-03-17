@@ -19,11 +19,6 @@ public class Agent extends User {
         this.handledTransactions = new ArrayList<>();
     }
 
-    public boolean register() {
-        System.out.println("Agent " + getName() + " registered with ID: " + agentId);
-        return true;
-    }
-
     @Override
     public boolean login() {
         System.out.println("Agent " + getName() + " logged in.");
@@ -95,7 +90,8 @@ public class Agent extends User {
     public double computeCommission() {
         double total = 0;
         for (Transaction t : handledTransactions) {
-            if (t.getTransactionStatus() == Status.COMPLETED) {
+            if (t.getTransactionStatus() == Status.COMPLETED
+                    || t.getTransactionStatus() == Status.RESERVED) {
                 total += t.getFinalTCP();
             }
         }
@@ -145,6 +141,26 @@ public class Agent extends User {
         t.setTransactionStatus(Status.REJECTED);
         t.setRemark(reason);
         if (t.getLot() != null) t.getLot().updateStatus(Status.PENDING);
+    }
+
+    // Returns only RESERVED transactions handled by this agent
+    public List<Transaction> getReservedTransactions() {
+        List<Transaction> result = new ArrayList<>();
+        for (Transaction t : handledTransactions)
+            if (t.getTransactionStatus() == Status.RESERVED) result.add(t);
+        return result;
+    }
+
+    // Agent cancels reservation: transaction -> CANCELLED, lot -> PENDING (available again)
+    public void cancelReservation(Transaction t) {
+        t.setTransactionStatus(Status.CANCELLED);
+        if (t.getLot() != null) t.getLot().updateStatus(Status.PENDING);
+    }
+
+    // Agent finalizes reservation: transaction -> COMPLETED, lot -> COMPLETED
+    public void finalizeReservation(Transaction t) {
+        t.setTransactionStatus(Status.COMPLETED);
+        if (t.getLot() != null) t.getLot().updateStatus(Status.COMPLETED);
     }
 
     public String getAgentId(){

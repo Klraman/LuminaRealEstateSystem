@@ -62,7 +62,7 @@ public class Subdivision {
             for (Lot lot : block.getLots()) {
                 total++;
                 switch (lot.getTransactionStatus()) {
-                    case PENDING   -> available++;
+                    case AVAILABLE -> available++;
                     case RESERVED  -> reserved++;
                     case COMPLETED -> sold++;
                     default        -> {}

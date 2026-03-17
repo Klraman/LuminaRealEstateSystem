@@ -1,5 +1,6 @@
 package MyLib;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class Transaction {
@@ -17,6 +18,8 @@ public class Transaction {
     private String remark;
     private Agent assignedAgent;
     private int loanTerm;
+    private String reservedUntil;
+    private String transactionType;
 
     public Transaction(Buyer buyer, Lot lot, PaymentMethod paymentMethod, Discount discount) {
         this.transactionID = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
@@ -29,6 +32,8 @@ public class Transaction {
         this.installmentsPaid = 0;
         this.amount = (lot != null && lot.getHouseModel() != null)
                 ? lot.getHouseModel().getCalculatedTCP() : 0;
+        this.transactionType = "BUY";
+        this.reservedUntil = null;
     }
 
     public void processPayment() {
@@ -158,5 +163,26 @@ public class Transaction {
 
     public void setLoanTerm(int loanTerm){
         this.loanTerm = loanTerm;
+    }
+
+    public String getReservedUntil(){
+        return reservedUntil;
+    }
+
+    public void setReservedUntil(String reservedUntil){
+        this.reservedUntil = reservedUntil;
+    }
+
+    public String getTransactionType(){
+        return transactionType;
+    }
+
+    public void setTransactionType(String transactionType){
+        this.transactionType = transactionType;
+        if ("RESERVE".equals(transactionType)) {
+            this.reservedUntil = LocalDate.now().plusDays(30).toString();
+        } else {
+            this.reservedUntil = null;
+        }
     }
 }

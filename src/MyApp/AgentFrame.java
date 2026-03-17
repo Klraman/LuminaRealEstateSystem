@@ -38,6 +38,7 @@ public class AgentFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         mainTabs = new javax.swing.JTabbedPane();
         jPanel_agentPending = new javax.swing.JPanel();
+        jSplitPane_mainPending = new javax.swing.JSplitPane();
         jSplitPane_pending = new javax.swing.JSplitPane();
         jScrollPane_agentPending = new javax.swing.JScrollPane();
         agentPendingTable = new javax.swing.JTable();
@@ -61,9 +62,18 @@ public class AgentFrame extends javax.swing.JFrame {
         pdLoanTerm = new javax.swing.JLabel();
         jLabel_pdDiscountKey = new javax.swing.JLabel();
         pdDiscount = new javax.swing.JLabel();
+        jLabel_pdReservedUntilKey = new javax.swing.JLabel();
+        pdReservedUntil = new javax.swing.JLabel();
         jPanel_agentActions = new javax.swing.JPanel();
         approveBtn = new javax.swing.JButton();
         rejectBtn = new javax.swing.JButton();
+        jPanel_reserved = new javax.swing.JPanel();
+        jLabel_reservedHeader = new javax.swing.JLabel();
+        jScrollPane_reserved = new javax.swing.JScrollPane();
+        jTable_reserved = new javax.swing.JTable();
+        jPanel_reservedBtns = new javax.swing.JPanel();
+        jButton_cancelReservation = new javax.swing.JButton();
+        jButton_finalizeReservation = new javax.swing.JButton();
         jPanel_agentHistory = new javax.swing.JPanel();
         jPanel_histToolbar = new javax.swing.JPanel();
         jButton_refreshHistory = new javax.swing.JButton();
@@ -137,7 +147,7 @@ public class AgentFrame extends javax.swing.JFrame {
         jPanel_agentDetail.add(jLabel_detTitle, java.awt.BorderLayout.NORTH);
 
         jPanel_detailGrid.setOpaque(false);
-        jPanel_detailGrid.setLayout(new java.awt.GridLayout(1, 2));
+        jPanel_detailGrid.setLayout(new java.awt.GridLayout(0, 2));
 
         jLabel_pdTxnIdKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel_pdTxnIdKey.setText("TXN ID:");
@@ -195,6 +205,13 @@ public class AgentFrame extends javax.swing.JFrame {
         pdDiscount.setText("—");
         jPanel_detailGrid.add(pdDiscount);
 
+        jLabel_pdReservedUntilKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_pdReservedUntilKey.setText("Reserved Until:");
+        jPanel_detailGrid.add(jLabel_pdReservedUntilKey);
+
+        pdReservedUntil.setText("—");
+        jPanel_detailGrid.add(pdReservedUntil);
+
         jPanel_agentDetail.add(jPanel_detailGrid, java.awt.BorderLayout.CENTER);
 
         jPanel_agentActions.setOpaque(false);
@@ -224,9 +241,51 @@ public class AgentFrame extends javax.swing.JFrame {
 
         jSplitPane_pending.setRightComponent(jScrollPane_agentDetail);
 
-        jPanel_agentPending.add(jSplitPane_pending, java.awt.BorderLayout.CENTER);
+        // Right panel: Currently Reserved
+        jPanel_reserved.setBackground(new java.awt.Color(248, 249, 252));
+        jPanel_reserved.setLayout(new java.awt.BorderLayout());
 
-        mainTabs.addTab("tab1", jPanel_agentPending);
+        jLabel_reservedHeader.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel_reservedHeader.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel_reservedHeader.setText("  Currently Reserved");
+        jPanel_reserved.add(jLabel_reservedHeader, java.awt.BorderLayout.NORTH);
+
+        jTable_reserved.setRowHeight(26);
+        jScrollPane_reserved.setViewportView(jTable_reserved);
+        jPanel_reserved.add(jScrollPane_reserved, java.awt.BorderLayout.CENTER);
+
+        jPanel_reservedBtns.setOpaque(false);
+        jPanel_reservedBtns.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        jButton_cancelReservation.setBackground(new java.awt.Color(160, 80, 0));
+        jButton_cancelReservation.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton_cancelReservation.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_cancelReservation.setText("Cancel Reservation");
+        jButton_cancelReservation.setEnabled(false);
+        jButton_cancelReservation.setBorderPainted(false);
+        jButton_cancelReservation.setFocusPainted(false);
+        jPanel_reservedBtns.add(jButton_cancelReservation);
+
+        jButton_finalizeReservation.setBackground(new java.awt.Color(0, 120, 60));
+        jButton_finalizeReservation.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton_finalizeReservation.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_finalizeReservation.setText("Finalize \u2014 Mark Sold");
+        jButton_finalizeReservation.setEnabled(false);
+        jButton_finalizeReservation.setBorderPainted(false);
+        jButton_finalizeReservation.setFocusPainted(false);
+        jPanel_reservedBtns.add(jButton_finalizeReservation);
+
+        jPanel_reserved.add(jPanel_reservedBtns, java.awt.BorderLayout.SOUTH);
+
+        // Outer horizontal split: left = pending queue, right = reserved panel
+        jSplitPane_mainPending.setDividerLocation(550);
+        jSplitPane_mainPending.setResizeWeight(0.5);
+        jSplitPane_mainPending.setLeftComponent(jSplitPane_pending);
+        jSplitPane_mainPending.setRightComponent(jPanel_reserved);
+
+        jPanel_agentPending.add(jSplitPane_mainPending, java.awt.BorderLayout.CENTER);
+
+        mainTabs.addTab("Pending Approvals", jPanel_agentPending);
 
         jPanel_agentHistory.setBackground(new java.awt.Color(248, 249, 252));
         jPanel_agentHistory.setLayout(new java.awt.BorderLayout());
@@ -253,7 +312,7 @@ public class AgentFrame extends javax.swing.JFrame {
 
         jPanel_agentHistory.add(jScrollPane_agentHistory, java.awt.BorderLayout.CENTER);
 
-        mainTabs.addTab("tab2", jPanel_agentHistory);
+        mainTabs.addTab("Approved Transactions", jPanel_agentHistory);
 
         jPanel3.setBackground(new java.awt.Color(0, 51, 204));
 
@@ -312,7 +371,9 @@ public class AgentFrame extends javax.swing.JFrame {
     // ── Non-GEN fields ──────────────────────────────────────────────────────
     private javax.swing.table.DefaultTableModel agentPendingModel;
     private javax.swing.table.DefaultTableModel agentHistoryModel;
+    private javax.swing.table.DefaultTableModel agentReservedModel;
     private MyLib.Transaction selectedPendingTxn = null;
+    private MyLib.Transaction selectedReservedTxn = null;
     private javax.swing.JLabel statusLabel;
 
     private static final java.awt.Color BG           = new java.awt.Color(248, 249, 252);
@@ -331,9 +392,24 @@ public class AgentFrame extends javax.swing.JFrame {
         jLabel6.setText(agent.getName() + "  |  Agent");
         statusLabel.setText("  " + agent.getName() + "  |  " + java.time.LocalDate.now());
 
-        // Grab model references from already-constructed tables
-        agentPendingModel = (javax.swing.table.DefaultTableModel) agentPendingTable.getModel();
-        agentHistoryModel = (javax.swing.table.DefaultTableModel) agentHistoryTable.getModel();
+        // Build table models with columns and attach to tables
+        agentPendingModel = new javax.swing.table.DefaultTableModel(
+            new String[]{"TXN ID","Buyer","Block","Lot #","Model","Final TCP","Payment","Loan Term","Discount"}, 0) {
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+        };
+        agentPendingTable.setModel(agentPendingModel);
+
+        agentHistoryModel = new javax.swing.table.DefaultTableModel(
+            new String[]{"TXN ID","Buyer","Block","Lot #","Model","Final TCP","Payment","Loan Term","Status","Remark"}, 0) {
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+        };
+        agentHistoryTable.setModel(agentHistoryModel);
+
+        agentReservedModel = new javax.swing.table.DefaultTableModel(
+            new String[]{"TXN ID","Buyer","Block","Lot #","Model","Final TCP","Reserved Until"}, 0) {
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+        };
+        jTable_reserved.setModel(agentReservedModel);
 
         // Action listeners
         approveBtn.addActionListener(e -> {
@@ -381,9 +457,58 @@ public class AgentFrame extends javax.swing.JFrame {
 
         jButton_refreshHistory.addActionListener(e -> refreshAgentHistoryTable());
 
+        jButton_cancelReservation.addActionListener(e -> {
+            if (selectedReservedTxn == null) return;
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
+                "Cancel reservation for TXN " + selectedReservedTxn.getTransactionID() + "?",
+                "Confirm Cancel", javax.swing.JOptionPane.YES_NO_OPTION);
+            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                agent.cancelReservation(selectedReservedTxn);
+                showMsg("Reservation " + selectedReservedTxn.getTransactionID() + " cancelled.");
+                selectedReservedTxn = null;
+                jButton_cancelReservation.setEnabled(false);
+                jButton_finalizeReservation.setEnabled(false);
+                refreshAgentPendingTable();
+                refreshAgentHistoryTable();
+            }
+        });
+
+        jButton_finalizeReservation.addActionListener(e -> {
+            if (selectedReservedTxn == null) return;
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
+                "Finalize (mark sold) TXN " + selectedReservedTxn.getTransactionID() + "?",
+                "Confirm Finalize", javax.swing.JOptionPane.YES_NO_OPTION);
+            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                agent.finalizeReservation(selectedReservedTxn);
+                showMsg("Transaction " + selectedReservedTxn.getTransactionID() + " finalized.");
+                selectedReservedTxn = null;
+                jButton_cancelReservation.setEnabled(false);
+                jButton_finalizeReservation.setEnabled(false);
+                refreshAgentPendingTable();
+                refreshAgentHistoryTable();
+            }
+        });
+
+        jTable_reserved.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int row = jTable_reserved.getSelectedRow();
+                java.util.List<MyLib.Transaction> reserved = agent.getReservedTransactions();
+                if (row >= 0 && row < reserved.size()) {
+                    selectedReservedTxn = reserved.get(row);
+                    jButton_cancelReservation.setEnabled(true);
+                    jButton_finalizeReservation.setEnabled(true);
+                } else {
+                    selectedReservedTxn = null;
+                    jButton_cancelReservation.setEnabled(false);
+                    jButton_finalizeReservation.setEnabled(false);
+                }
+            }
+        });
+
         // Column widths
         setColWidths(agentPendingTable, 90, 130, 50, 50, 130, 120, 110, 70, 110);
         setColWidths(agentHistoryTable, 90, 130, 50, 50, 130, 120, 110, 70, 85, 140);
+        setColWidths(jTable_reserved, 90, 130, 50, 50, 130, 120, 110);
 
         // Initial data
         refreshAgentPendingTable();
@@ -392,6 +517,23 @@ public class AgentFrame extends javax.swing.JFrame {
     }
 
     // ── Pending Queue helpers ───────────────────────────────────────────────
+
+    private void refreshAgentReservedTable() {
+        if (agentReservedModel == null) return;
+        agentReservedModel.setRowCount(0);
+        for (MyLib.Transaction t : agent.getReservedTransactions()) {
+            MyLib.Lot lot = t.getLot();
+            agentReservedModel.addRow(new Object[]{
+                t.getTransactionID(),
+                t.getBuyer() != null ? t.getBuyer().getName() : "\u2014",
+                lot != null ? lot.getBlkNum() : "\u2014",
+                lot != null ? lot.getLotNum() : "\u2014",
+                lot != null && lot.getHouseModel() != null ? lot.getHouseModel().getModelName() : "\u2014",
+                "\u20b1" + String.format("%,.2f", t.getFinalTCP()),
+                t.getReservedUntil() != null ? t.getReservedUntil() : "\u2014"
+            });
+        }
+    }
 
     private void refreshAgentPendingTable() {
         if (agentPendingModel == null) return;
@@ -410,6 +552,7 @@ public class AgentFrame extends javax.swing.JFrame {
                 t.getDiscount() != null ? t.getDiscount().getDiscountDescription() : "None"
             });
         }
+        refreshAgentReservedTable();
     }
 
     private void showPendingDetail(MyLib.Transaction t) {
@@ -422,11 +565,13 @@ public class AgentFrame extends javax.swing.JFrame {
         pdPayMethod.setText(paymentLabel(t.getPaymentMethod()));
         pdLoanTerm.setText(t.getLoanTerm() > 0 ? t.getLoanTerm() + " years" : "\u2014");
         pdDiscount.setText(t.getDiscount() != null ? t.getDiscount().getDiscountDescription() : "None");
+        pdReservedUntil.setText("RESERVE".equals(t.getTransactionType()) && t.getReservedUntil() != null
+                ? t.getReservedUntil() : "\u2014");
     }
 
     private void clearPendingDetail() {
         for (javax.swing.JLabel lbl : new javax.swing.JLabel[]{
-                pdTxnId, pdBuyer, pdBlkLot, pdModel, pdTCP, pdPayMethod, pdLoanTerm, pdDiscount})
+                pdTxnId, pdBuyer, pdBlkLot, pdModel, pdTCP, pdPayMethod, pdLoanTerm, pdDiscount, pdReservedUntil})
             if (lbl != null) lbl.setText("\u2014");
     }
 
@@ -477,6 +622,8 @@ public class AgentFrame extends javax.swing.JFrame {
     private javax.swing.JTable agentPendingTable;
     private javax.swing.JButton approveBtn;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton_cancelReservation;
+    private javax.swing.JButton jButton_finalizeReservation;
     private javax.swing.JButton jButton_refreshHistory;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -485,6 +632,7 @@ public class AgentFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_pdBuyerKey;
     private javax.swing.JLabel jLabel_pdDiscountKey;
     private javax.swing.JLabel jLabel_pdLoanTermKey;
+    private javax.swing.JLabel jLabel_pdReservedUntilKey;
     private javax.swing.JLabel jLabel_pdModelKey;
     private javax.swing.JLabel jLabel_pdPayMethodKey;
     private javax.swing.JLabel jLabel_pdTCPKey;
@@ -498,15 +646,22 @@ public class AgentFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_agentPending;
     private javax.swing.JPanel jPanel_detailGrid;
     private javax.swing.JPanel jPanel_histToolbar;
+    private javax.swing.JPanel jPanel_reserved;
+    private javax.swing.JPanel jPanel_reservedBtns;
+    private javax.swing.JLabel jLabel_reservedHeader;
     private javax.swing.JScrollPane jScrollPane_agentDetail;
     private javax.swing.JScrollPane jScrollPane_agentHistory;
     private javax.swing.JScrollPane jScrollPane_agentPending;
+    private javax.swing.JScrollPane jScrollPane_reserved;
+    private javax.swing.JTable jTable_reserved;
+    private javax.swing.JSplitPane jSplitPane_mainPending;
     private javax.swing.JSplitPane jSplitPane_pending;
     private javax.swing.JTabbedPane mainTabs;
     private javax.swing.JLabel pdBlkLot;
     private javax.swing.JLabel pdBuyer;
     private javax.swing.JLabel pdDiscount;
     private javax.swing.JLabel pdLoanTerm;
+    private javax.swing.JLabel pdReservedUntil;
     private javax.swing.JLabel pdModel;
     private javax.swing.JLabel pdPayMethod;
     private javax.swing.JLabel pdTCP;
