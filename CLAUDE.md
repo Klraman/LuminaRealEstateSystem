@@ -45,7 +45,7 @@ Phase: CLASSIC_2, PHASE_3
 
 Status (used by both Lot and Transaction): PENDING, RESERVED, COMPLETED, CANCELLED
 
-BuyerType: REGULAR, SENIOR_CITIZEN, PWD, FIRST_TIME_BUYER
+BuyerType: REGULAR, SENIOR_CITIZEN, PWD, FIRST_TIME_BUYER, VETERAN
 
 ---
 
@@ -268,6 +268,12 @@ FirstTimeDiscount extends Discount
   # discountRate: double = 0.05
   # discountLabel: String = "First Time"
   + computeDiscount(tcp: double): double
+
+VeteranDiscount extends Discount
+  # discountRate: double = 0.10
+  # discountLabel: String = "Veteran"
+  + computeDiscount(tcp: double): double
+  + getDiscountDescription(): String   [returns "Veteran Discount (10%)"]
 
 ---
 

@@ -12,7 +12,19 @@
       "Bash(cd:*)",
       "Bash('SRC=C:/Users/My Computer/Documents/Important Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src' 'OUT=C:/Users/My Computer/Documents/Important Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/build/classes' mkdir -p $OUT find $SRC -name *.java cat /tmp/sources.txt)",
       "Bash(SRC=\"C:/Users/My Computer/Documents/Important Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src\" OUT=\"C:/Users/My Computer/Documents/Important Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/build/classes\" mkdir -p \"$OUT\" find \"$SRC\" -name \"*.java\")",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(ant clean:*)",
+      "Bash(cmd.exe /c \"cd \"\"C:\\\\Users\\\\My Computer\\\\Documents\\\\Important Stuff\\\\School\\\\College\\\\Coding\\\\Netbeans\\\\LuminaRealEstateSystem\"\" && ant clean build 2>&1\")",
+      "Bash(cmd.exe /c \"where ant\")",
+      "Bash(cmd.exe /c \"where javac\")",
+      "Bash(powershell.exe -Command \"Get-Command javac -ErrorAction SilentlyContinue | Select-Object Source; Get-Command ant -ErrorAction SilentlyContinue | Select-Object Source\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem 'C:\\\\Program Files\\\\NetBeans*' -ErrorAction SilentlyContinue | Select-Object Name; Get-ChildItem 'C:\\\\Program Files\\\\Apache*' -ErrorAction SilentlyContinue | Select-Object Name\" 2>&1)",
+      "Bash(powershell.exe -Command \"javac -version 2>&1; Get-Content 'C:\\\\\\\\Users\\\\\\\\My Computer\\\\\\\\Documents\\\\\\\\Important Stuff\\\\\\\\School\\\\\\\\College\\\\\\\\Coding\\\\\\\\Netbeans\\\\\\\\LuminaRealEstateSystem\\\\\\\\nbproject\\\\\\\\project.properties' | Select-String 'source|target|javac'\" 2>&1)",
+      "Bash(powershell.exe -Command \"Get-ChildItem 'C:\\\\Users\\\\My Computer\\\\Documents\\\\Important Stuff\\\\School\\\\College\\\\Coding\\\\Netbeans\\\\LuminaRealEstateSystem\\\\src' -Filter '*.java' -Recurse | ForEach-Object { $_.FullName } | Out-File 'C:\\\\Temp\\\\sources.txt' -Encoding UTF8; mkdir -Force 'C:\\\\Temp\\\\lumina_build'\" 2>&1)",
+      "Bash(powershell.exe -Command \"New-Item -Force 'C:\\\\Temp\\\\sources.txt' -ItemType File; Get-ChildItem 'C:\\\\Users\\\\My Computer\\\\Documents\\\\Important Stuff\\\\School\\\\College\\\\Coding\\\\Netbeans\\\\LuminaRealEstateSystem\\\\src' -Filter '*.java' -Recurse | ForEach-Object { $_.FullName } | Out-File 'C:\\\\Temp\\\\sources.txt' -Encoding UTF8\" 2>&1)",
+      "Bash(cmd.exe /c \"C:\\\\Temp\\\\build_lumina.bat\" 2>&1)",
+      "Bash(cmd.exe /c \"call C:\\\\Temp\\\\build_lumina.bat\")",
+      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"\n\\\\$sources = Get-ChildItem 'C:\\\\Users\\\\My Computer\\\\Documents\\\\Important Stuff\\\\School\\\\College\\\\Coding\\\\Netbeans\\\\LuminaRealEstateSystem\\\\src' -Filter '*.java' -Recurse | ForEach-Object FullName\n\\\\$sources | Set-Content 'C:\\\\Temp\\\\sources.txt' -Encoding UTF8\nNew-Item -ItemType Directory -Force 'C:\\\\Temp\\\\lumina_build2' | Out-Null\n\\\\$result = & javac -d 'C:\\\\Temp\\\\lumina_build2' \\(Get-Content 'C:\\\\Temp\\\\sources.txt'\\) 2>&1\n\\\\$result\nWrite-Host 'Exit:' \\\\$LASTEXITCODE\n\" 2>&1)"
     ]
   }
 }

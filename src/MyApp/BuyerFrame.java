@@ -18,6 +18,8 @@ public class BuyerFrame extends javax.swing.JFrame {
         this.buyer = buyer;
         initComponents();
         setupUI();
+        setSize(1100, 700);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -69,6 +71,7 @@ public class BuyerFrame extends javax.swing.JFrame {
         jCheckBox_senior = new javax.swing.JCheckBox();
         jCheckBox_pwd = new javax.swing.JCheckBox();
         jCheckBox_firstTime = new javax.swing.JCheckBox();
+        jCheckBox_veteran = new javax.swing.JCheckBox();
         jLabel_payHeader = new javax.swing.JLabel();
         jLabel_payMethod = new javax.swing.JLabel();
         jComboBox_payMethod = new javax.swing.JComboBox<>(new String[]{"Cash","Bank","Pag-IBIG","EMI (In-House)"});
@@ -248,6 +251,10 @@ public class BuyerFrame extends javax.swing.JFrame {
         jCheckBox_firstTime.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jCheckBox_firstTime.setOpaque(false);
 
+        jCheckBox_veteran.setText("Veteran \u2014 10%");
+        jCheckBox_veteran.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jCheckBox_veteran.setOpaque(false);
+
         jLabel_payHeader.setText("Payment Options");
         jLabel_payHeader.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel_payHeader.setForeground(new java.awt.Color(0, 51, 204));
@@ -285,6 +292,7 @@ public class BuyerFrame extends javax.swing.JFrame {
             .addComponent(jCheckBox_senior)
             .addComponent(jCheckBox_pwd)
             .addComponent(jCheckBox_firstTime)
+            .addComponent(jCheckBox_veteran)
             .addComponent(jLabel_payHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel_purchaseLeftLayout.createSequentialGroup()
                 .addComponent(jLabel_payMethod, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,6 +324,8 @@ public class BuyerFrame extends javax.swing.JFrame {
                 .addComponent(jCheckBox_pwd)
                 .addGap(2, 2, 2)
                 .addComponent(jCheckBox_firstTime)
+                .addGap(2, 2, 2)
+                .addComponent(jCheckBox_veteran)
                 .addGap(16, 16, 16)
                 .addComponent(jLabel_payHeader)
                 .addGap(8, 8, 8)
@@ -572,18 +582,22 @@ public class BuyerFrame extends javax.swing.JFrame {
         jComboBox_selBlock.addActionListener(e -> refreshPurchaseDetails());
         jComboBox_selLot.addActionListener(e -> refreshPurchaseDetails());
         jComboBox_loanTerm.addActionListener(e -> refreshPurchaseDetails());
+        jComboBox_payMethod.addActionListener(e -> onPayMethodChanged());
+
         java.awt.event.ItemListener discListener = evt -> {
             if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
                 javax.swing.JCheckBox src = (javax.swing.JCheckBox) evt.getSource();
                 if (src != jCheckBox_senior)    jCheckBox_senior.setSelected(false);
                 if (src != jCheckBox_pwd)       jCheckBox_pwd.setSelected(false);
                 if (src != jCheckBox_firstTime) jCheckBox_firstTime.setSelected(false);
+                if (src != jCheckBox_veteran)   jCheckBox_veteran.setSelected(false);
             }
             refreshPurchaseDetails();
         };
         jCheckBox_senior.addItemListener(discListener);
         jCheckBox_pwd.addItemListener(discListener);
         jCheckBox_firstTime.addItemListener(discListener);
+        jCheckBox_veteran.addItemListener(discListener);
         jButton_submitToAgent.addActionListener(e -> submitPurchaseToAgent());
         jButton_refreshTxns.addActionListener(e -> refreshBuyerTxnTable());
 
@@ -601,8 +615,8 @@ public class BuyerFrame extends javax.swing.JFrame {
         populateBrowseTable(buyer.viewAvailableLots());
         refreshBuyerTxnTable();
 
-        setSize(1100, 700);
-        setLocationRelativeTo(null);
+        // Set initial payment method visibility (Cash is default — hide loan term & amort)
+        onPayMethodChanged();
     }
 
     // ── Browse helpers ──────────────────────────────────────────────────────
@@ -694,9 +708,9 @@ public class BuyerFrame extends javax.swing.JFrame {
         jLabel_modelName.setText(u.getModelName() + "  (Block " + blk + " \u00b7 Lot " + lotNum + ")");
         jLabel_modelName.setForeground(HEADER_COLOR);
 
-        double tcp     = u.getEstimatedTCP();
+        double tcp      = u.getEstimatedTCP();
         MyLib.Discount disc = buildPurchaseDiscount();
-        double discAmt = disc != null ? disc.computeDiscount(tcp) : 0;
+        double discAmt  = disc != null ? disc.computeDiscount(tcp) : 0;
         double finalTcp = tcp - discAmt;
 
         jLabel_tcp.setText("\u20b1" + String.format("%,.2f", tcp));
@@ -708,20 +722,80 @@ public class BuyerFrame extends javax.swing.JFrame {
         jLabel_downPayment.setText("\u20b1" + String.format("%,.2f", u.getDownPayment()));
         jLabel_dpTarget.setText("\u20b1" + String.format("%,.2f", u.getDpTarget()) + " / month");
         jLabel_dpPeriod.setText((int) u.getDpPeriod() + " months");
-        jLabel_interestRate.setText((u.getInterestRate() * 100) + "% p.a.");
 
-        int term = (Integer) jComboBox_loanTerm.getSelectedItem();
-        jLabel_monthlyAmort.setText("\u20b1" + String.format("%,.2f", u.getMonthlyAmort(term)) + " / month");
+        String payMethod = (String) jComboBox_payMethod.getSelectedItem();
+        boolean isCash   = "Cash".equals(payMethod);
 
-        javax.swing.table.DefaultTableModel am = (javax.swing.table.DefaultTableModel) jTable_amortTable.getModel();
-        am.setRowCount(0);
-        int[] terms = {5, 10, 15, 20, 25, 30};
-        for (int yr : terms)
-            am.addRow(new Object[]{yr + " years", "\u20b1" + String.format("%,.2f", u.getMonthlyAmort(yr))});
-        for (int i = 0; i < terms.length; i++)
-            if (terms[i] == term) { jTable_amortTable.setRowSelectionInterval(i, i); break; }
+        jLabel_loanTerm.setVisible(!isCash);
+        jComboBox_loanTerm.setVisible(!isCash);
+        jScrollPane_amort.setVisible(!isCash);
+
+        if (isCash) {
+            jLabel_interestRate.setText("N/A \u2014 Full Cash Payment");
+            jLabel_monthlyAmort.setText("Full Payment: \u20b1" + String.format("%,.2f", finalTcp));
+        } else {
+            if (jComboBox_loanTerm.getSelectedItem() == null) {
+                jButton_submitToAgent.setEnabled(true);
+                return;
+            }
+            double rate  = getEffectiveRate(u, payMethod);
+            int    term  = (Integer) jComboBox_loanTerm.getSelectedItem();
+            jLabel_interestRate.setText(String.format("%.2f%% p.a. (%s)", rate * 100, payMethod));
+            double monthly = computeMonthlyAmort(u.getLoanableAmount(), term, rate);
+            jLabel_monthlyAmort.setText("\u20b1" + String.format("%,.2f", monthly) + " / month");
+
+            javax.swing.table.DefaultTableModel am = (javax.swing.table.DefaultTableModel) jTable_amortTable.getModel();
+            am.setRowCount(0);
+            int[] terms = getTermsForMethod(payMethod);
+            for (int yr : terms)
+                am.addRow(new Object[]{yr + " years", "\u20b1" + String.format("%,.2f", computeMonthlyAmort(u.getLoanableAmount(), yr, rate))});
+            for (int i = 0; i < terms.length; i++)
+                if (terms[i] == term) { jTable_amortTable.setRowSelectionInterval(i, i); break; }
+        }
 
         jButton_submitToAgent.setEnabled(true);
+    }
+
+    private void onPayMethodChanged() {
+        String method = (String) jComboBox_payMethod.getSelectedItem();
+        if (!"Cash".equals(method)) {
+            int[] terms = getTermsForMethod(method);
+            java.awt.event.ActionListener[] als = jComboBox_loanTerm.getActionListeners();
+            for (java.awt.event.ActionListener l : als) jComboBox_loanTerm.removeActionListener(l);
+            jComboBox_loanTerm.removeAllItems();
+            for (int yr : terms) jComboBox_loanTerm.addItem(yr);
+            for (java.awt.event.ActionListener l : als) jComboBox_loanTerm.addActionListener(l);
+        }
+        boolean isCash = "Cash".equals(method);
+        jLabel_loanTerm.setVisible(!isCash);
+        jComboBox_loanTerm.setVisible(!isCash);
+        jScrollPane_amort.setVisible(!isCash);
+        refreshPurchaseDetails();
+    }
+
+    private double getEffectiveRate(MyLib.PropertyUnit u, String payMethod) {
+        switch (payMethod) {
+            case "Bank":           return 0.065;    // 6.50% p.a.
+            case "Pag-IBIG":
+                return "Aimee Inner".equals(u.getModelName()) ? 0.03 : 0.0625; // 3% socialized / 6.25% standard
+            case "EMI (In-House)": return 0.14;     // 14% p.a.
+            default:               return 0.0;
+        }
+    }
+
+    private int[] getTermsForMethod(String payMethod) {
+        switch (payMethod) {
+            case "EMI (In-House)": return new int[]{5, 10, 15};
+            case "Bank":           return new int[]{5, 10, 15, 20};
+            default:               return new int[]{5, 10, 15, 20, 25, 30}; // Pag-IBIG
+        }
+    }
+
+    private double computeMonthlyAmort(double loanable, int years, double annualRate) {
+        double r = annualRate / 12.0;
+        int    n = years * 12;
+        if (r == 0 || n == 0) return 0;
+        return loanable * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
     }
 
     private void clearPurchaseDetails() {
@@ -736,12 +810,18 @@ public class BuyerFrame extends javax.swing.JFrame {
         am.setRowCount(0);
         for (int yr : new int[]{5, 10, 15, 20, 25, 30})
             am.addRow(new Object[]{yr + " years", "\u2014 "});
+        // Sync loan-term / amort visibility with current payment method
+        boolean isCash = "Cash".equals(jComboBox_payMethod.getSelectedItem());
+        jLabel_loanTerm.setVisible(!isCash);
+        jComboBox_loanTerm.setVisible(!isCash);
+        jScrollPane_amort.setVisible(!isCash);
     }
 
     private MyLib.Discount buildPurchaseDiscount() {
         if (jCheckBox_senior.isSelected())    return new MyLib.SeniorCitizenDiscount();
         if (jCheckBox_pwd.isSelected())       return new MyLib.PWDDiscount();
         if (jCheckBox_firstTime.isSelected()) return new MyLib.FirstTimeDiscount();
+        if (jCheckBox_veteran.isSelected())   return new MyLib.VeteranDiscount();
         return null;
     }
 
@@ -758,10 +838,12 @@ public class BuyerFrame extends javax.swing.JFrame {
         java.util.List<MyLib.Agent> agents = ctx.getAgents();
         if (agents.isEmpty()) { showMsg("No agents available."); return; }
 
+        boolean isCash = "Cash".equals(jComboBox_payMethod.getSelectedItem());
         MyLib.Agent assignedAgent = agents.get(0);
-        int loanTerm              = (Integer) jComboBox_loanTerm.getSelectedItem();
-        MyLib.Discount disc       = buildPurchaseDiscount();
-        MyLib.PaymentMethod pm    = buildPurchasePaymentMethod(loanTerm, lot);
+        int loanTerm = (isCash || jComboBox_loanTerm.getSelectedItem() == null) ? 0
+                     : (Integer) jComboBox_loanTerm.getSelectedItem();
+        MyLib.Discount disc    = buildPurchaseDiscount();
+        MyLib.PaymentMethod pm = buildPurchasePaymentMethod(loanTerm, lot);
 
         MyLib.Transaction txn = new MyLib.Transaction(buyer, lot, pm, disc);
         txn.setTransactionStatus(MyLib.Status.PENDING);
@@ -780,6 +862,7 @@ public class BuyerFrame extends javax.swing.JFrame {
         jCheckBox_senior.setSelected(false);
         jCheckBox_pwd.setSelected(false);
         jCheckBox_firstTime.setSelected(false);
+        jCheckBox_veteran.setSelected(false);
         populateBrowseTable(buyer.viewAvailableLots());
         refreshBuyerTxnTable();
         mainTabs.setSelectedIndex(2);
@@ -890,6 +973,7 @@ public class BuyerFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox_firstTime;
     private javax.swing.JCheckBox jCheckBox_pwd;
     private javax.swing.JCheckBox jCheckBox_senior;
+    private javax.swing.JCheckBox jCheckBox_veteran;
     private javax.swing.JComboBox<String> jComboBox_payMethod;
     private javax.swing.JComboBox<String> jComboBox_selBlock;
     private javax.swing.JComboBox<Integer> jComboBox_loanTerm;

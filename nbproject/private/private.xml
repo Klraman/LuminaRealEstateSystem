@@ -3,15 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/MainJFrame.java</file>
-            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/AdminPage.java</file>
-            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/MyLib/Agent.java</file>
-            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/MyLib/Bank.java</file>
-            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/MyLib/PropertyUnit.java</file>
-            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/MyLib/angeliEnd.java</file>
-            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/LoginPage.java</file>
-            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/BuyerPage.java</file>
-            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/AgentPage.java</file>
+            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/MyApp/MainFrame.java</file>
+            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/MyApp/AppContext.java</file>
+            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/MyApp/AdminFrame.java</file>
+            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/MyApp/BuyerFrame.java</file>
+            <file>file:/C:/Users/My%20Computer/Documents/Important%20Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src/MyApp/AgentFrame.java</file>
         </group>
     </open-files>
 </project-private>

@@ -18,6 +18,8 @@ public class AdminFrame extends javax.swing.JFrame {
         this.admin = admin;
         initComponents();
         setupUI();
+        setSize(1100, 700);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -37,8 +39,36 @@ public class AdminFrame extends javax.swing.JFrame {
         mainTabs = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
 
+        // ── All Transactions tab components ───────────────────────────────
+        jPanel_adminTxns = new javax.swing.JPanel();
+        jPanel_adminTxnToolbar = new javax.swing.JPanel();
+        jButton_refreshAdminTxns = new javax.swing.JButton();
+        jScrollPane_adminTxns = new javax.swing.JScrollPane();
+        adminTxnTable = new javax.swing.JTable();
+
+        // ── Agent Management tab components ───────────────────────────────
+        jPanel_adminAgentMgmt = new javax.swing.JPanel();
+        jPanel_reassignBar = new javax.swing.JPanel();
+        jLabel_txnIdKey = new javax.swing.JLabel();
+        jTextField_txnId = new javax.swing.JTextField();
+        jLabel_reassignToKey = new javax.swing.JLabel();
+        jComboBox_agentCombo = new javax.swing.JComboBox<>();
+        jButton_reassign = new javax.swing.JButton();
+        jButton_refreshAgentMgmt = new javax.swing.JButton();
+        jScrollPane_adminAssign = new javax.swing.JScrollPane();
+        adminAssignTable = new javax.swing.JTable();
+
+        // ── Inventory tab components ───────────────────────────────────────
+        jPanel_adminInventory = new javax.swing.JPanel();
+        jPanel_invToolbar = new javax.swing.JPanel();
+        jButton_refreshInventory = new javax.swing.JButton();
+        jScrollPane_adminInv = new javax.swing.JScrollPane();
+        adminInvTable = new javax.swing.JTable();
+
+        // ── Frame setup ────────────────────────────────────────────────────
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        // ── Header panel ───────────────────────────────────────────────────
         jPanel5.setBackground(new java.awt.Color(0, 51, 204));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
@@ -84,6 +114,140 @@ public class AdminFrame extends javax.swing.JFrame {
 
         mainTabs.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
+        // ── All Transactions tab ───────────────────────────────────────────
+        jPanel_adminTxns.setLayout(new java.awt.BorderLayout(0, 6));
+        jPanel_adminTxns.setBackground(new java.awt.Color(248, 249, 252));
+        jPanel_adminTxns.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+
+        jButton_refreshAdminTxns.setText("\u27f3  Refresh");
+        jButton_refreshAdminTxns.setBackground(new java.awt.Color(0, 51, 204));
+        jButton_refreshAdminTxns.setForeground(java.awt.Color.WHITE);
+        jButton_refreshAdminTxns.setFocusPainted(false);
+        jButton_refreshAdminTxns.setBorderPainted(false);
+        jButton_refreshAdminTxns.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jPanel_adminTxnToolbar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 0));
+        jPanel_adminTxnToolbar.setOpaque(false);
+        jPanel_adminTxnToolbar.add(jButton_refreshAdminTxns);
+
+        adminTxnTable.setModel(new javax.swing.table.DefaultTableModel(
+            new String[]{"TXN ID","Buyer","Agent","Block","Lot #","Model","Final TCP","Payment","Discount","Status","Remark"}, 0) {
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+        });
+        adminTxnTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        adminTxnTable.setRowHeight(26);
+        adminTxnTable.setGridColor(new java.awt.Color(220, 220, 220));
+        adminTxnTable.setShowGrid(true);
+        adminTxnTable.setSelectionBackground(new java.awt.Color(210, 228, 252));
+        adminTxnTable.getTableHeader().setFont(new java.awt.Font("Segoe UI", 1, 12));
+        adminTxnTable.getTableHeader().setBackground(new java.awt.Color(0, 51, 204));
+        adminTxnTable.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
+        adminTxnTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane_adminTxns.setViewportView(adminTxnTable);
+
+        jPanel_adminTxns.add(jPanel_adminTxnToolbar, java.awt.BorderLayout.NORTH);
+        jPanel_adminTxns.add(jScrollPane_adminTxns, java.awt.BorderLayout.CENTER);
+
+        mainTabs.addTab("All Transactions", jPanel_adminTxns);
+
+        // ── Agent Management tab ───────────────────────────────────────────
+        jPanel_adminAgentMgmt.setLayout(new java.awt.BorderLayout(0, 8));
+        jPanel_adminAgentMgmt.setBackground(new java.awt.Color(248, 249, 252));
+        jPanel_adminAgentMgmt.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+
+        jPanel_reassignBar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 4));
+        jPanel_reassignBar.setBackground(new java.awt.Color(235, 240, 248));
+        jPanel_reassignBar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(210, 218, 230)));
+
+        jLabel_txnIdKey.setText("TXN ID:");
+        jLabel_txnIdKey.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jTextField_txnId.setColumns(10);
+        jTextField_txnId.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jLabel_reassignToKey.setText("Reassign to Agent:");
+        jLabel_reassignToKey.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jComboBox_agentCombo.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jButton_reassign.setText("Reassign");
+        jButton_reassign.setBackground(new java.awt.Color(0, 51, 204));
+        jButton_reassign.setForeground(java.awt.Color.WHITE);
+        jButton_reassign.setFocusPainted(false);
+        jButton_reassign.setBorderPainted(false);
+        jButton_reassign.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jButton_refreshAgentMgmt.setText("\u27f3  Refresh");
+        jButton_refreshAgentMgmt.setBackground(new java.awt.Color(0, 51, 204));
+        jButton_refreshAgentMgmt.setForeground(java.awt.Color.WHITE);
+        jButton_refreshAgentMgmt.setFocusPainted(false);
+        jButton_refreshAgentMgmt.setBorderPainted(false);
+        jButton_refreshAgentMgmt.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jPanel_reassignBar.add(jLabel_txnIdKey);
+        jPanel_reassignBar.add(jTextField_txnId);
+        jPanel_reassignBar.add(jLabel_reassignToKey);
+        jPanel_reassignBar.add(jComboBox_agentCombo);
+        jPanel_reassignBar.add(jButton_reassign);
+        jPanel_reassignBar.add(jButton_refreshAgentMgmt);
+
+        adminAssignTable.setModel(new javax.swing.table.DefaultTableModel(
+            new String[]{"Agent","Buyer","TXN ID","Block","Lot #","Model","Status"}, 0) {
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+        });
+        adminAssignTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        adminAssignTable.setRowHeight(26);
+        adminAssignTable.setGridColor(new java.awt.Color(220, 220, 220));
+        adminAssignTable.setShowGrid(true);
+        adminAssignTable.setSelectionBackground(new java.awt.Color(210, 228, 252));
+        adminAssignTable.getTableHeader().setFont(new java.awt.Font("Segoe UI", 1, 12));
+        adminAssignTable.getTableHeader().setBackground(new java.awt.Color(0, 51, 204));
+        adminAssignTable.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
+        adminAssignTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane_adminAssign.setViewportView(adminAssignTable);
+
+        jPanel_adminAgentMgmt.add(jPanel_reassignBar, java.awt.BorderLayout.NORTH);
+        jPanel_adminAgentMgmt.add(jScrollPane_adminAssign, java.awt.BorderLayout.CENTER);
+
+        mainTabs.addTab("Agent Management", jPanel_adminAgentMgmt);
+
+        // ── Inventory tab ──────────────────────────────────────────────────
+        jPanel_adminInventory.setLayout(new java.awt.BorderLayout(0, 6));
+        jPanel_adminInventory.setBackground(new java.awt.Color(248, 249, 252));
+        jPanel_adminInventory.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+
+        jButton_refreshInventory.setText("\u27f3  Refresh Inventory");
+        jButton_refreshInventory.setBackground(new java.awt.Color(0, 51, 204));
+        jButton_refreshInventory.setForeground(java.awt.Color.WHITE);
+        jButton_refreshInventory.setFocusPainted(false);
+        jButton_refreshInventory.setBorderPainted(false);
+        jButton_refreshInventory.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jPanel_invToolbar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 0));
+        jPanel_invToolbar.setOpaque(false);
+        jPanel_invToolbar.add(jButton_refreshInventory);
+
+        adminInvTable.setModel(new javax.swing.table.DefaultTableModel(
+            new String[]{"Block","Lot #","Model","Total Contract Price","Floor Area","Lot Area","Phase","Status"}, 0) {
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+        });
+        adminInvTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        adminInvTable.setRowHeight(26);
+        adminInvTable.setGridColor(new java.awt.Color(220, 220, 220));
+        adminInvTable.setShowGrid(true);
+        adminInvTable.setSelectionBackground(new java.awt.Color(210, 228, 252));
+        adminInvTable.getTableHeader().setFont(new java.awt.Font("Segoe UI", 1, 12));
+        adminInvTable.getTableHeader().setBackground(new java.awt.Color(0, 51, 204));
+        adminInvTable.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
+        adminInvTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane_adminInv.setViewportView(adminInvTable);
+
+        jPanel_adminInventory.add(jPanel_invToolbar, java.awt.BorderLayout.NORTH);
+        jPanel_adminInventory.add(jScrollPane_adminInv, java.awt.BorderLayout.CENTER);
+
+        mainTabs.addTab("Inventory", jPanel_adminInventory);
+
+        // ── Status bar (jPanel3) ───────────────────────────────────────────
         jPanel3.setBackground(new java.awt.Color(0, 51, 204));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -97,6 +261,7 @@ public class AdminFrame extends javax.swing.JFrame {
             .addGap(0, 28, Short.MAX_VALUE)
         );
 
+        // ── Outer panel (jPanel1) ──────────────────────────────────────────
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,54 +299,73 @@ public class AdminFrame extends javax.swing.JFrame {
         new MainFrame().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    // ── Setup ──────────────────────────────────────────────────────────────
+    // ── Non-GEN fields ──────────────────────────────────────────────────────
+    private javax.swing.table.DefaultTableModel adminTxnModel;
+    private javax.swing.table.DefaultTableModel adminAssignModel;
+    private javax.swing.table.DefaultTableModel adminInvModel;
+    private javax.swing.JLabel statusLabel;
 
+    private static final java.awt.Color BG           = new java.awt.Color(248, 249, 252);
+    private static final java.awt.Color HEADER_COLOR = new java.awt.Color(0, 51, 204);
+
+    // ── Setup ──────────────────────────────────────────────────────────────
     private void setupUI() {
+        // Status bar label
         jPanel3.setLayout(new java.awt.BorderLayout());
         statusLabel = new javax.swing.JLabel();
         statusLabel.setForeground(java.awt.Color.WHITE);
         statusLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
         jPanel3.add(statusLabel, java.awt.BorderLayout.WEST);
 
+        // User labels
         jLabel6.setText(admin.getName() + "  |  Admin");
         statusLabel.setText("  " + admin.getName() + "  |  " + java.time.LocalDate.now());
 
-        mainTabs.addTab("All Transactions", buildAdminTransactionsTab());
-        mainTabs.addTab("Agent Management", buildAdminAgentMgmtTab());
-        mainTabs.addTab("Inventory",        buildAdminInventoryTab());
+        // Grab model references from already-constructed tables
+        adminTxnModel    = (javax.swing.table.DefaultTableModel) adminTxnTable.getModel();
+        adminAssignModel = (javax.swing.table.DefaultTableModel) adminAssignTable.getModel();
+        adminInvModel    = (javax.swing.table.DefaultTableModel) adminInvTable.getModel();
 
-        setSize(1100, 700);
-        setLocationRelativeTo(null);
-    }
+        // Populate agent combo from AppContext
+        AppContext ctx = AppContext.getInstance();
+        for (MyLib.Agent a : ctx.getAgents())
+            jComboBox_agentCombo.addItem(a.getName());
 
-    // ─────────────────────────────────────────────────────────────────────
-    // ADMIN TAB 1: All Transactions
-    // ─────────────────────────────────────────────────────────────────────
+        // Column widths
+        setColWidths(adminTxnTable,    90, 120, 110, 50, 50, 120, 130, 100, 100, 85, 130);
+        setColWidths(adminAssignTable, 130, 130, 90, 50, 50, 140, 90);
+        setColWidths(adminInvTable,    55, 55, 140, 160, 85, 80, 85, 90);
 
-    private javax.swing.table.DefaultTableModel adminTxnModel;
+        // Action listeners
+        jButton_refreshAdminTxns.addActionListener(e -> refreshAdminTxnTable());
+        jButton_refreshAgentMgmt.addActionListener(e -> refreshAdminAssignTable());
+        jButton_refreshInventory.addActionListener(e -> refreshAdminInventory());
 
-    private javax.swing.JPanel buildAdminTransactionsTab() {
-        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.BorderLayout(0, 6));
-        panel.setBackground(BG);
-        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        jButton_reassign.addActionListener(e -> {
+            String txnId = jTextField_txnId.getText().trim();
+            if (txnId.isEmpty() || jComboBox_agentCombo.getSelectedIndex() < 0) {
+                showMsg("Enter a TXN ID and select an agent."); return;
+            }
+            MyLib.Transaction target = null;
+            for (MyLib.Transaction t : ctx.getAllTransactions())
+                if (t.getTransactionID().equalsIgnoreCase(txnId)) { target = t; break; }
+            if (target == null) { showMsg("Transaction not found: " + txnId); return; }
+            MyLib.Agent newAgent = ctx.getAgents().get(jComboBox_agentCombo.getSelectedIndex());
+            target.setAssignedAgent(newAgent);
+            if (!newAgent.getHandledTransactions().contains(target))
+                newAgent.addPendingTransaction(target);
+            showMsg("Reassigned " + txnId + " to " + newAgent.getName());
+            refreshAdminAssignTable();
+        });
 
-        String[] cols = {"TXN ID", "Buyer", "Agent", "Block", "Lot #", "Model",
-                         "Final TCP", "Payment", "Discount", "Status", "Remark"};
-        adminTxnModel = nonEditableModel(cols);
-        javax.swing.JTable table = styledTable(adminTxnModel);
-        setColWidths(table, 90, 120, 110, 50, 50, 120, 130, 100, 100, 85, 130);
-
-        javax.swing.JButton refresh = tabBtn("\u27f3  Refresh");
-        refresh.addActionListener(e -> refreshAdminTxnTable());
-        javax.swing.JPanel toolbar = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 0));
-        toolbar.setOpaque(false);
-        toolbar.add(refresh);
-
-        panel.add(toolbar, java.awt.BorderLayout.NORTH);
-        panel.add(new javax.swing.JScrollPane(table), java.awt.BorderLayout.CENTER);
+        // Initial data
         refreshAdminTxnTable();
-        return panel;
+        refreshAdminAssignTable();
+        refreshAdminInventory();
+
     }
+
+    // ── All Transactions helpers ────────────────────────────────────────────
 
     private void refreshAdminTxnTable() {
         if (adminTxnModel == null) return;
@@ -205,63 +389,7 @@ public class AdminFrame extends javax.swing.JFrame {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────
-    // ADMIN TAB 2: Agent Management
-    // ─────────────────────────────────────────────────────────────────────
-
-    private javax.swing.table.DefaultTableModel adminAssignModel;
-
-    private javax.swing.JPanel buildAdminAgentMgmtTab() {
-        javax.swing.JPanel outer = new javax.swing.JPanel(new java.awt.BorderLayout(0, 8));
-        outer.setBackground(BG);
-        outer.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
-
-        String[] cols = {"Agent", "Buyer", "TXN ID", "Block", "Lot #", "Model", "Status"};
-        adminAssignModel = nonEditableModel(cols);
-        javax.swing.JTable table = styledTable(adminAssignModel);
-        setColWidths(table, 130, 130, 90, 50, 50, 140, 90);
-
-        javax.swing.JPanel reassignBar = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 4));
-        reassignBar.setBackground(new java.awt.Color(235, 240, 248));
-        reassignBar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(210, 218, 230)));
-        javax.swing.JTextField txnField = new javax.swing.JTextField(10);
-        javax.swing.JComboBox<String> agentCombo = buildAgentCombo();
-        javax.swing.JButton reassignBtn = tabBtn("Reassign");
-        reassignBtn.addActionListener(e -> {
-            String txnId = txnField.getText().trim();
-            if (txnId.isEmpty() || agentCombo.getSelectedIndex() < 0) {
-                showMsg("Enter a TXN ID and select an agent."); return;
-            }
-            AppContext ctx = AppContext.getInstance();
-            MyLib.Transaction target = null;
-            for (MyLib.Transaction t : ctx.getAllTransactions())
-                if (t.getTransactionID().equalsIgnoreCase(txnId)) { target = t; break; }
-            if (target == null) { showMsg("Transaction not found: " + txnId); return; }
-            MyLib.Agent newAgent = ctx.getAgents().get(agentCombo.getSelectedIndex());
-            target.setAssignedAgent(newAgent);
-            if (!newAgent.getHandledTransactions().contains(target))
-                newAgent.addPendingTransaction(target);
-            showMsg("Reassigned " + txnId + " to " + newAgent.getName());
-            refreshAdminAssignTable();
-        });
-        javax.swing.JButton refresh = tabBtn("\u27f3  Refresh");
-        refresh.addActionListener(e -> refreshAdminAssignTable());
-        reassignBar.add(new javax.swing.JLabel("TXN ID:")); reassignBar.add(txnField);
-        reassignBar.add(new javax.swing.JLabel("Reassign to Agent:")); reassignBar.add(agentCombo);
-        reassignBar.add(reassignBtn); reassignBar.add(refresh);
-
-        outer.add(reassignBar, java.awt.BorderLayout.NORTH);
-        outer.add(new javax.swing.JScrollPane(table), java.awt.BorderLayout.CENTER);
-        refreshAdminAssignTable();
-        return outer;
-    }
-
-    private javax.swing.JComboBox<String> buildAgentCombo() {
-        java.util.List<MyLib.Agent> agents = AppContext.getInstance().getAgents();
-        String[] names = new String[agents.size()];
-        for (int i = 0; i < agents.size(); i++) names[i] = agents.get(i).getName();
-        return new javax.swing.JComboBox<>(names);
-    }
+    // ── Agent Management helpers ────────────────────────────────────────────
 
     private void refreshAdminAssignTable() {
         if (adminAssignModel == null) return;
@@ -281,34 +409,7 @@ public class AdminFrame extends javax.swing.JFrame {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────
-    // ADMIN TAB 3: Inventory
-    // ─────────────────────────────────────────────────────────────────────
-
-    private javax.swing.table.DefaultTableModel adminInvModel;
-
-    private javax.swing.JPanel buildAdminInventoryTab() {
-        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.BorderLayout(0, 6));
-        panel.setBackground(BG);
-        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
-
-        String[] cols = {"Block", "Lot #", "Model", "Total Contract Price",
-                         "Floor Area", "Lot Area", "Phase", "Status"};
-        adminInvModel = nonEditableModel(cols);
-        javax.swing.JTable table = styledTable(adminInvModel);
-        setColWidths(table, 55, 55, 140, 160, 85, 80, 85, 90);
-
-        javax.swing.JButton refresh = tabBtn("\u27f3  Refresh Inventory");
-        refresh.addActionListener(e -> refreshAdminInventory());
-        javax.swing.JPanel toolbar = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 0));
-        toolbar.setOpaque(false);
-        toolbar.add(refresh);
-
-        panel.add(toolbar, java.awt.BorderLayout.NORTH);
-        panel.add(new javax.swing.JScrollPane(table), java.awt.BorderLayout.CENTER);
-        refreshAdminInventory();
-        return panel;
-    }
+    // ── Inventory helpers ───────────────────────────────────────────────────
 
     private void refreshAdminInventory() {
         if (adminInvModel == null) return;
@@ -330,44 +431,7 @@ public class AdminFrame extends javax.swing.JFrame {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────
-    // Shared helpers
-    // ─────────────────────────────────────────────────────────────────────
-
-    private static final java.awt.Color BG           = new java.awt.Color(248, 249, 252);
-    private static final java.awt.Color HEADER_COLOR = new java.awt.Color(0, 51, 204);
-
-    private javax.swing.JLabel statusLabel;
-
-    private javax.swing.JButton tabBtn(String text) {
-        javax.swing.JButton b = new javax.swing.JButton(text);
-        b.setBackground(HEADER_COLOR);
-        b.setForeground(java.awt.Color.WHITE);
-        b.setFocusPainted(false);
-        b.setBorderPainted(false);
-        b.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
-        return b;
-    }
-
-    private javax.swing.table.DefaultTableModel nonEditableModel(String[] cols) {
-        return new javax.swing.table.DefaultTableModel(cols, 0) {
-            @Override public boolean isCellEditable(int r, int c) { return false; }
-        };
-    }
-
-    private javax.swing.JTable styledTable(javax.swing.table.DefaultTableModel m) {
-        javax.swing.JTable t = new javax.swing.JTable(m);
-        t.setRowHeight(26);
-        t.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
-        t.setSelectionBackground(new java.awt.Color(210, 228, 252));
-        t.setGridColor(new java.awt.Color(220, 220, 220));
-        t.setShowGrid(true);
-        t.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
-        t.getTableHeader().setBackground(HEADER_COLOR);
-        t.getTableHeader().setForeground(java.awt.Color.WHITE);
-        t.getTableHeader().setReorderingAllowed(false);
-        return t;
-    }
+    // ── Shared helpers ──────────────────────────────────────────────────────
 
     private void setColWidths(javax.swing.JTable t, int... widths) {
         for (int i = 0; i < widths.length && i < t.getColumnCount(); i++)
@@ -375,7 +439,7 @@ public class AdminFrame extends javax.swing.JFrame {
     }
 
     private String paymentLabel(MyLib.PaymentMethod pm) {
-        if (pm == null)              return "\u2014";
+        if (pm == null)                  return "\u2014";
         if (pm instanceof MyLib.Cash)    return "Cash";
         if (pm instanceof MyLib.Bank)    return "Bank Financing";
         if (pm instanceof MyLib.Pagibig) return "Pag-IBIG";
@@ -388,12 +452,32 @@ public class AdminFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable adminAssignTable;
+    private javax.swing.JTable adminInvTable;
+    private javax.swing.JTable adminTxnTable;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton_reassign;
+    private javax.swing.JButton jButton_refreshAdminTxns;
+    private javax.swing.JButton jButton_refreshAgentMgmt;
+    private javax.swing.JButton jButton_refreshInventory;
+    private javax.swing.JComboBox<String> jComboBox_agentCombo;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel_reassignToKey;
+    private javax.swing.JLabel jLabel_txnIdKey;
     private javax.swing.JTabbedPane mainTabs;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel_adminAgentMgmt;
+    private javax.swing.JPanel jPanel_adminInventory;
+    private javax.swing.JPanel jPanel_adminTxns;
+    private javax.swing.JPanel jPanel_adminTxnToolbar;
+    private javax.swing.JPanel jPanel_invToolbar;
+    private javax.swing.JPanel jPanel_reassignBar;
+    private javax.swing.JScrollPane jScrollPane_adminAssign;
+    private javax.swing.JScrollPane jScrollPane_adminInv;
+    private javax.swing.JScrollPane jScrollPane_adminTxns;
+    private javax.swing.JTextField jTextField_txnId;
     // End of variables declaration//GEN-END:variables
 }

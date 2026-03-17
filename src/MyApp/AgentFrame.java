@@ -18,6 +18,8 @@ public class AgentFrame extends javax.swing.JFrame {
         this.agent = agent;
         initComponents();
         setupUI();
+        setSize(1100, 700);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -37,8 +39,46 @@ public class AgentFrame extends javax.swing.JFrame {
         mainTabs = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
 
+        // ── Pending Queue tab components ───────────────────────────────────
+        jPanel_agentPending = new javax.swing.JPanel();
+        jSplitPane_pending = new javax.swing.JSplitPane();
+        jScrollPane_agentPending = new javax.swing.JScrollPane();
+        agentPendingTable = new javax.swing.JTable();
+        jScrollPane_agentDetail = new javax.swing.JScrollPane();
+        jPanel_agentDetail = new javax.swing.JPanel();
+        jLabel_detTitle = new javax.swing.JLabel();
+        jPanel_detailGrid = new javax.swing.JPanel();
+        jLabel_pdTxnIdKey = new javax.swing.JLabel();
+        pdTxnId = new javax.swing.JLabel();
+        jLabel_pdBuyerKey = new javax.swing.JLabel();
+        pdBuyer = new javax.swing.JLabel();
+        jLabel_pdBlkLotKey = new javax.swing.JLabel();
+        pdBlkLot = new javax.swing.JLabel();
+        jLabel_pdModelKey = new javax.swing.JLabel();
+        pdModel = new javax.swing.JLabel();
+        jLabel_pdTCPKey = new javax.swing.JLabel();
+        pdTCP = new javax.swing.JLabel();
+        jLabel_pdPayMethodKey = new javax.swing.JLabel();
+        pdPayMethod = new javax.swing.JLabel();
+        jLabel_pdLoanTermKey = new javax.swing.JLabel();
+        pdLoanTerm = new javax.swing.JLabel();
+        jLabel_pdDiscountKey = new javax.swing.JLabel();
+        pdDiscount = new javax.swing.JLabel();
+        jPanel_agentActions = new javax.swing.JPanel();
+        approveBtn = new javax.swing.JButton();
+        rejectBtn = new javax.swing.JButton();
+
+        // ── History tab components ─────────────────────────────────────────
+        jPanel_agentHistory = new javax.swing.JPanel();
+        jPanel_histToolbar = new javax.swing.JPanel();
+        jButton_refreshHistory = new javax.swing.JButton();
+        jScrollPane_agentHistory = new javax.swing.JScrollPane();
+        agentHistoryTable = new javax.swing.JTable();
+
+        // ── Frame setup ────────────────────────────────────────────────────
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        // ── Header panel ───────────────────────────────────────────────────
         jPanel5.setBackground(new java.awt.Color(0, 51, 204));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
@@ -84,6 +124,181 @@ public class AgentFrame extends javax.swing.JFrame {
 
         mainTabs.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
+        // ── Pending Queue tab ──────────────────────────────────────────────
+        jPanel_agentPending.setLayout(new java.awt.BorderLayout());
+        jPanel_agentPending.setBackground(new java.awt.Color(248, 249, 252));
+        jPanel_agentPending.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
+
+        agentPendingTable.setModel(new javax.swing.table.DefaultTableModel(
+            new String[]{"TXN ID","Buyer","Block","Lot #","Model","Final TCP","Payment","Loan Term","Discount"}, 0) {
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+        });
+        agentPendingTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        agentPendingTable.setRowHeight(26);
+        agentPendingTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        agentPendingTable.setGridColor(new java.awt.Color(220, 220, 220));
+        agentPendingTable.setShowGrid(true);
+        agentPendingTable.setSelectionBackground(new java.awt.Color(210, 228, 252));
+        agentPendingTable.getTableHeader().setFont(new java.awt.Font("Segoe UI", 1, 12));
+        agentPendingTable.getTableHeader().setBackground(new java.awt.Color(0, 51, 204));
+        agentPendingTable.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
+        agentPendingTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane_agentPending.setViewportView(agentPendingTable);
+
+        // Detail panel (bottom of split)
+        jPanel_agentDetail.setLayout(new java.awt.BorderLayout(0, 6));
+        jPanel_agentDetail.setBackground(java.awt.Color.WHITE);
+        jPanel_agentDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(210, 218, 230)),
+            javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12)));
+
+        jLabel_detTitle.setText("Transaction Details");
+        jLabel_detTitle.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel_detTitle.setForeground(new java.awt.Color(0, 51, 204));
+
+        jPanel_detailGrid.setLayout(new java.awt.GridLayout(0, 2, 8, 4));
+        jPanel_detailGrid.setOpaque(false);
+
+        jLabel_pdTxnIdKey.setText("TXN ID:");
+        jLabel_pdTxnIdKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_pdTxnIdKey.setForeground(new java.awt.Color(80, 80, 80));
+        pdTxnId.setText("\u2014");
+        pdTxnId.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jLabel_pdBuyerKey.setText("Buyer:");
+        jLabel_pdBuyerKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_pdBuyerKey.setForeground(new java.awt.Color(80, 80, 80));
+        pdBuyer.setText("\u2014");
+        pdBuyer.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jLabel_pdBlkLotKey.setText("Block / Lot:");
+        jLabel_pdBlkLotKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_pdBlkLotKey.setForeground(new java.awt.Color(80, 80, 80));
+        pdBlkLot.setText("\u2014");
+        pdBlkLot.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jLabel_pdModelKey.setText("House Model:");
+        jLabel_pdModelKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_pdModelKey.setForeground(new java.awt.Color(80, 80, 80));
+        pdModel.setText("\u2014");
+        pdModel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jLabel_pdTCPKey.setText("Final TCP:");
+        jLabel_pdTCPKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_pdTCPKey.setForeground(new java.awt.Color(80, 80, 80));
+        pdTCP.setText("\u2014");
+        pdTCP.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jLabel_pdPayMethodKey.setText("Payment Method:");
+        jLabel_pdPayMethodKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_pdPayMethodKey.setForeground(new java.awt.Color(80, 80, 80));
+        pdPayMethod.setText("\u2014");
+        pdPayMethod.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jLabel_pdLoanTermKey.setText("Loan Term:");
+        jLabel_pdLoanTermKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_pdLoanTermKey.setForeground(new java.awt.Color(80, 80, 80));
+        pdLoanTerm.setText("\u2014");
+        pdLoanTerm.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jLabel_pdDiscountKey.setText("Discount:");
+        jLabel_pdDiscountKey.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_pdDiscountKey.setForeground(new java.awt.Color(80, 80, 80));
+        pdDiscount.setText("\u2014");
+        pdDiscount.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jPanel_detailGrid.add(jLabel_pdTxnIdKey);
+        jPanel_detailGrid.add(pdTxnId);
+        jPanel_detailGrid.add(jLabel_pdBuyerKey);
+        jPanel_detailGrid.add(pdBuyer);
+        jPanel_detailGrid.add(jLabel_pdBlkLotKey);
+        jPanel_detailGrid.add(pdBlkLot);
+        jPanel_detailGrid.add(jLabel_pdModelKey);
+        jPanel_detailGrid.add(pdModel);
+        jPanel_detailGrid.add(jLabel_pdTCPKey);
+        jPanel_detailGrid.add(pdTCP);
+        jPanel_detailGrid.add(jLabel_pdPayMethodKey);
+        jPanel_detailGrid.add(pdPayMethod);
+        jPanel_detailGrid.add(jLabel_pdLoanTermKey);
+        jPanel_detailGrid.add(pdLoanTerm);
+        jPanel_detailGrid.add(jLabel_pdDiscountKey);
+        jPanel_detailGrid.add(pdDiscount);
+
+        approveBtn.setText("Approve");
+        approveBtn.setEnabled(false);
+        approveBtn.setBackground(new java.awt.Color(34, 120, 34));
+        approveBtn.setForeground(java.awt.Color.WHITE);
+        approveBtn.setFocusPainted(false);
+        approveBtn.setBorderPainted(false);
+        approveBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        rejectBtn.setText("Reject");
+        rejectBtn.setEnabled(false);
+        rejectBtn.setBackground(new java.awt.Color(160, 40, 40));
+        rejectBtn.setForeground(java.awt.Color.WHITE);
+        rejectBtn.setFocusPainted(false);
+        rejectBtn.setBorderPainted(false);
+        rejectBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        jPanel_agentActions.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 4));
+        jPanel_agentActions.setOpaque(false);
+        jPanel_agentActions.add(approveBtn);
+        jPanel_agentActions.add(rejectBtn);
+
+        jPanel_agentDetail.add(jLabel_detTitle, java.awt.BorderLayout.NORTH);
+        jPanel_agentDetail.add(jPanel_detailGrid, java.awt.BorderLayout.CENTER);
+        jPanel_agentDetail.add(jPanel_agentActions, java.awt.BorderLayout.SOUTH);
+
+        jScrollPane_agentDetail.setViewportView(jPanel_agentDetail);
+
+        jSplitPane_pending.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane_pending.setResizeWeight(0.60);
+        jSplitPane_pending.setDividerSize(5);
+        jSplitPane_pending.setBorder(null);
+        jSplitPane_pending.setTopComponent(jScrollPane_agentPending);
+        jSplitPane_pending.setBottomComponent(jScrollPane_agentDetail);
+
+        jPanel_agentPending.add(jSplitPane_pending, java.awt.BorderLayout.CENTER);
+
+        mainTabs.addTab("Pending Queue", jPanel_agentPending);
+
+        // ── History tab ────────────────────────────────────────────────────
+        jPanel_agentHistory.setLayout(new java.awt.BorderLayout(0, 6));
+        jPanel_agentHistory.setBackground(new java.awt.Color(248, 249, 252));
+        jPanel_agentHistory.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+
+        jButton_refreshHistory.setText("\u27f3  Refresh");
+        jButton_refreshHistory.setBackground(new java.awt.Color(0, 51, 204));
+        jButton_refreshHistory.setForeground(java.awt.Color.WHITE);
+        jButton_refreshHistory.setFocusPainted(false);
+        jButton_refreshHistory.setBorderPainted(false);
+        jButton_refreshHistory.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jPanel_histToolbar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 0));
+        jPanel_histToolbar.setOpaque(false);
+        jPanel_histToolbar.add(jButton_refreshHistory);
+
+        agentHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
+            new String[]{"TXN ID","Buyer","Block","Lot #","Model","Final TCP","Payment","Loan Term","Status","Remark"}, 0) {
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+        });
+        agentHistoryTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        agentHistoryTable.setRowHeight(26);
+        agentHistoryTable.setGridColor(new java.awt.Color(220, 220, 220));
+        agentHistoryTable.setShowGrid(true);
+        agentHistoryTable.setSelectionBackground(new java.awt.Color(210, 228, 252));
+        agentHistoryTable.getTableHeader().setFont(new java.awt.Font("Segoe UI", 1, 12));
+        agentHistoryTable.getTableHeader().setBackground(new java.awt.Color(0, 51, 204));
+        agentHistoryTable.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
+        agentHistoryTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane_agentHistory.setViewportView(agentHistoryTable);
+
+        jPanel_agentHistory.add(jPanel_histToolbar, java.awt.BorderLayout.NORTH);
+        jPanel_agentHistory.add(jScrollPane_agentHistory, java.awt.BorderLayout.CENTER);
+
+        mainTabs.addTab("History", jPanel_agentHistory);
+
+        // ── Status bar (jPanel3) ───────────────────────────────────────────
         jPanel3.setBackground(new java.awt.Color(0, 51, 204));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -97,6 +312,7 @@ public class AgentFrame extends javax.swing.JFrame {
             .addGap(0, 28, Short.MAX_VALUE)
         );
 
+        // ── Outer panel (jPanel1) ──────────────────────────────────────────
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,79 +350,33 @@ public class AgentFrame extends javax.swing.JFrame {
         new MainFrame().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    // ── Setup ──────────────────────────────────────────────────────────────
+    // ── Non-GEN fields ──────────────────────────────────────────────────────
+    private javax.swing.table.DefaultTableModel agentPendingModel;
+    private javax.swing.table.DefaultTableModel agentHistoryModel;
+    private MyLib.Transaction selectedPendingTxn = null;
+    private javax.swing.JLabel statusLabel;
 
+    private static final java.awt.Color BG           = new java.awt.Color(248, 249, 252);
+    private static final java.awt.Color HEADER_COLOR = new java.awt.Color(0, 51, 204);
+
+    // ── Setup ──────────────────────────────────────────────────────────────
     private void setupUI() {
+        // Status bar label
         jPanel3.setLayout(new java.awt.BorderLayout());
         statusLabel = new javax.swing.JLabel();
         statusLabel.setForeground(java.awt.Color.WHITE);
         statusLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
         jPanel3.add(statusLabel, java.awt.BorderLayout.WEST);
 
+        // User labels
         jLabel6.setText(agent.getName() + "  |  Agent");
         statusLabel.setText("  " + agent.getName() + "  |  " + java.time.LocalDate.now());
 
-        mainTabs.addTab("Pending Queue", buildAgentPendingTab());
-        mainTabs.addTab("History",       buildAgentHistoryTab());
+        // Grab model references from already-constructed tables
+        agentPendingModel = (javax.swing.table.DefaultTableModel) agentPendingTable.getModel();
+        agentHistoryModel = (javax.swing.table.DefaultTableModel) agentHistoryTable.getModel();
 
-        setSize(1100, 700);
-        setLocationRelativeTo(null);
-    }
-
-    // ─────────────────────────────────────────────────────────────────────
-    // AGENT TAB 1: Pending Queue
-    // ─────────────────────────────────────────────────────────────────────
-
-    private javax.swing.table.DefaultTableModel agentPendingModel;
-    private javax.swing.JTable agentPendingTable;
-    private javax.swing.JLabel pdTxnId, pdBuyer, pdBlkLot, pdModel,
-                               pdTCP, pdPayMethod, pdLoanTerm, pdDiscount;
-    private javax.swing.JButton approveBtn, rejectBtn;
-    private MyLib.Transaction   selectedPendingTxn = null;
-
-    private javax.swing.JPanel buildAgentPendingTab() {
-        String[] cols = {"TXN ID", "Buyer", "Block", "Lot #", "Model",
-                         "Final TCP", "Payment", "Loan Term", "Discount"};
-        agentPendingModel = nonEditableModel(cols);
-        agentPendingTable = styledTable(agentPendingModel);
-        agentPendingTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        setColWidths(agentPendingTable, 90, 130, 50, 50, 130, 120, 110, 70, 110);
-
-        javax.swing.JScrollPane topScroll = new javax.swing.JScrollPane(agentPendingTable);
-
-        // Detail panel
-        javax.swing.JPanel detailPanel = new javax.swing.JPanel(new java.awt.BorderLayout(0, 6));
-        detailPanel.setBackground(java.awt.Color.WHITE);
-        detailPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(210, 218, 230)),
-            javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12)));
-
-        javax.swing.JLabel detTitle = new javax.swing.JLabel("Transaction Details");
-        detTitle.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-        detTitle.setForeground(HEADER_COLOR);
-
-        javax.swing.JPanel grid = new javax.swing.JPanel(new java.awt.GridLayout(0, 2, 8, 4));
-        grid.setOpaque(false);
-        pdTxnId    = detLbl(); pdBuyer     = detLbl();
-        pdBlkLot   = detLbl(); pdModel     = detLbl();
-        pdTCP      = detLbl(); pdPayMethod = detLbl();
-        pdLoanTerm = detLbl(); pdDiscount  = detLbl();
-        addDetRow(grid, "TXN ID",         pdTxnId);
-        addDetRow(grid, "Buyer",          pdBuyer);
-        addDetRow(grid, "Block / Lot",    pdBlkLot);
-        addDetRow(grid, "House Model",    pdModel);
-        addDetRow(grid, "Final TCP",      pdTCP);
-        addDetRow(grid, "Payment Method", pdPayMethod);
-        addDetRow(grid, "Loan Term",      pdLoanTerm);
-        addDetRow(grid, "Discount",       pdDiscount);
-
-        approveBtn = new javax.swing.JButton("Approve");
-        rejectBtn  = new javax.swing.JButton("Reject");
-        styleActionButton(approveBtn, new java.awt.Color(34, 120, 34));
-        styleActionButton(rejectBtn,  new java.awt.Color(160, 40, 40));
-        approveBtn.setEnabled(false);
-        rejectBtn.setEnabled(false);
-
+        // Action listeners
         approveBtn.addActionListener(e -> {
             if (selectedPendingTxn == null) return;
             agent.approveTransaction(selectedPendingTxn);
@@ -250,29 +420,19 @@ public class AgentFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.JPanel actionBar = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 4));
-        actionBar.setOpaque(false);
-        actionBar.add(approveBtn); actionBar.add(rejectBtn);
+        jButton_refreshHistory.addActionListener(e -> refreshAgentHistoryTable());
 
-        detailPanel.add(detTitle,  java.awt.BorderLayout.NORTH);
-        detailPanel.add(grid,      java.awt.BorderLayout.CENTER);
-        detailPanel.add(actionBar, java.awt.BorderLayout.SOUTH);
+        // Column widths
+        setColWidths(agentPendingTable, 90, 130, 50, 50, 130, 120, 110, 70, 110);
+        setColWidths(agentHistoryTable, 90, 130, 50, 50, 130, 120, 110, 70, 85, 140);
 
-        javax.swing.JSplitPane split = new javax.swing.JSplitPane(
-            javax.swing.JSplitPane.VERTICAL_SPLIT,
-            topScroll, new javax.swing.JScrollPane(detailPanel));
-        split.setResizeWeight(0.60);
-        split.setDividerSize(5);
-        split.setBorder(null);
-
-        javax.swing.JPanel wrapper = new javax.swing.JPanel(new java.awt.BorderLayout());
-        wrapper.setBackground(BG);
-        wrapper.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
-        wrapper.add(split, java.awt.BorderLayout.CENTER);
-
+        // Initial data
         refreshAgentPendingTable();
-        return wrapper;
+        refreshAgentHistoryTable();
+
     }
+
+    // ── Pending Queue helpers ───────────────────────────────────────────────
 
     private void refreshAgentPendingTable() {
         if (agentPendingModel == null) return;
@@ -311,35 +471,7 @@ public class AgentFrame extends javax.swing.JFrame {
             if (lbl != null) lbl.setText("\u2014");
     }
 
-    // ─────────────────────────────────────────────────────────────────────
-    // AGENT TAB 2: History
-    // ─────────────────────────────────────────────────────────────────────
-
-    private javax.swing.table.DefaultTableModel agentHistoryModel;
-
-    private javax.swing.JPanel buildAgentHistoryTab() {
-        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.BorderLayout(0, 6));
-        panel.setBackground(BG);
-        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
-
-        String[] cols = {"TXN ID", "Buyer", "Block", "Lot #", "Model",
-                         "Final TCP", "Payment", "Loan Term", "Status", "Remark"};
-        agentHistoryModel = nonEditableModel(cols);
-        javax.swing.JTable table = styledTable(agentHistoryModel);
-        setColWidths(table, 90, 130, 50, 50, 130, 120, 110, 70, 85, 140);
-
-        javax.swing.JButton refresh = tabBtn("\u27f3  Refresh");
-        refresh.addActionListener(e -> refreshAgentHistoryTable());
-        javax.swing.JPanel toolbar = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 0));
-        toolbar.setOpaque(false);
-        toolbar.add(refresh);
-
-        panel.add(toolbar, java.awt.BorderLayout.NORTH);
-        panel.add(new javax.swing.JScrollPane(table), java.awt.BorderLayout.CENTER);
-
-        refreshAgentHistoryTable();
-        return panel;
-    }
+    // ── History helpers ─────────────────────────────────────────────────────
 
     private void refreshAgentHistoryTable() {
         if (agentHistoryModel == null) return;
@@ -361,65 +493,7 @@ public class AgentFrame extends javax.swing.JFrame {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────
-    // Shared helpers
-    // ─────────────────────────────────────────────────────────────────────
-
-    private static final java.awt.Color BG           = new java.awt.Color(248, 249, 252);
-    private static final java.awt.Color HEADER_COLOR = new java.awt.Color(0, 51, 204);
-
-    private javax.swing.JLabel statusLabel;
-
-    private javax.swing.JButton tabBtn(String text) {
-        javax.swing.JButton b = new javax.swing.JButton(text);
-        b.setBackground(HEADER_COLOR);
-        b.setForeground(java.awt.Color.WHITE);
-        b.setFocusPainted(false);
-        b.setBorderPainted(false);
-        b.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
-        return b;
-    }
-
-    private void styleActionButton(javax.swing.JButton b, java.awt.Color bg) {
-        b.setBackground(bg);
-        b.setForeground(java.awt.Color.WHITE);
-        b.setFocusPainted(false);
-        b.setBorderPainted(false);
-        b.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
-    }
-
-    private javax.swing.JLabel detLbl() {
-        javax.swing.JLabel l = new javax.swing.JLabel("\u2014");
-        l.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
-        return l;
-    }
-
-    private void addDetRow(javax.swing.JPanel grid, String key, javax.swing.JLabel val) {
-        javax.swing.JLabel k = new javax.swing.JLabel(key + ":");
-        k.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
-        k.setForeground(new java.awt.Color(80, 80, 80));
-        grid.add(k); grid.add(val);
-    }
-
-    private javax.swing.table.DefaultTableModel nonEditableModel(String[] cols) {
-        return new javax.swing.table.DefaultTableModel(cols, 0) {
-            @Override public boolean isCellEditable(int r, int c) { return false; }
-        };
-    }
-
-    private javax.swing.JTable styledTable(javax.swing.table.DefaultTableModel m) {
-        javax.swing.JTable t = new javax.swing.JTable(m);
-        t.setRowHeight(26);
-        t.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
-        t.setSelectionBackground(new java.awt.Color(210, 228, 252));
-        t.setGridColor(new java.awt.Color(220, 220, 220));
-        t.setShowGrid(true);
-        t.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
-        t.getTableHeader().setBackground(HEADER_COLOR);
-        t.getTableHeader().setForeground(java.awt.Color.WHITE);
-        t.getTableHeader().setReorderingAllowed(false);
-        return t;
-    }
+    // ── Shared helpers ──────────────────────────────────────────────────────
 
     private void setColWidths(javax.swing.JTable t, int... widths) {
         for (int i = 0; i < widths.length && i < t.getColumnCount(); i++)
@@ -427,7 +501,7 @@ public class AgentFrame extends javax.swing.JFrame {
     }
 
     private String paymentLabel(MyLib.PaymentMethod pm) {
-        if (pm == null)              return "\u2014";
+        if (pm == null)                  return "\u2014";
         if (pm instanceof MyLib.Cash)    return "Cash";
         if (pm instanceof MyLib.Bank)    return "Bank Financing";
         if (pm instanceof MyLib.Pagibig) return "Pag-IBIG";
@@ -440,12 +514,44 @@ public class AgentFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable agentHistoryTable;
+    private javax.swing.JTable agentPendingTable;
+    private javax.swing.JButton approveBtn;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton_refreshHistory;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel_detTitle;
+    private javax.swing.JLabel jLabel_pdBlkLotKey;
+    private javax.swing.JLabel jLabel_pdBuyerKey;
+    private javax.swing.JLabel jLabel_pdDiscountKey;
+    private javax.swing.JLabel jLabel_pdLoanTermKey;
+    private javax.swing.JLabel jLabel_pdModelKey;
+    private javax.swing.JLabel jLabel_pdPayMethodKey;
+    private javax.swing.JLabel jLabel_pdTCPKey;
+    private javax.swing.JLabel jLabel_pdTxnIdKey;
     private javax.swing.JTabbedPane mainTabs;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel_agentActions;
+    private javax.swing.JPanel jPanel_agentDetail;
+    private javax.swing.JPanel jPanel_agentHistory;
+    private javax.swing.JPanel jPanel_agentPending;
+    private javax.swing.JPanel jPanel_detailGrid;
+    private javax.swing.JPanel jPanel_histToolbar;
+    private javax.swing.JLabel pdBlkLot;
+    private javax.swing.JLabel pdBuyer;
+    private javax.swing.JLabel pdDiscount;
+    private javax.swing.JLabel pdLoanTerm;
+    private javax.swing.JLabel pdModel;
+    private javax.swing.JLabel pdPayMethod;
+    private javax.swing.JLabel pdTCP;
+    private javax.swing.JLabel pdTxnId;
+    private javax.swing.JButton rejectBtn;
+    private javax.swing.JScrollPane jScrollPane_agentDetail;
+    private javax.swing.JScrollPane jScrollPane_agentHistory;
+    private javax.swing.JScrollPane jScrollPane_agentPending;
+    private javax.swing.JSplitPane jSplitPane_pending;
     // End of variables declaration//GEN-END:variables
 }
