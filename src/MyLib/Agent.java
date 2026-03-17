@@ -90,8 +90,7 @@ public class Agent extends User {
     public double computeCommission() {
         double total = 0;
         for (Transaction t : handledTransactions) {
-            if (t.getTransactionStatus() == Status.COMPLETED
-                    || t.getTransactionStatus() == Status.RESERVED) {
+            if (t.getTransactionStatus() == Status.COMPLETED || t.getTransactionStatus() == Status.RESERVED) {
                 total += t.getFinalTCP();
             }
         }
@@ -124,16 +123,19 @@ public class Agent extends User {
     public List<Transaction> getApprovedTransactions() {
         List<Transaction> result = new ArrayList<>();
         for (Transaction t : handledTransactions)
-            if (t.getTransactionStatus() == Status.RESERVED
-                    || t.getTransactionStatus() == Status.COMPLETED)
+            if (t.getTransactionStatus() == Status.COMPLETED)
                 result.add(t);
         return result;
     }
 
     // Agent approves: transaction -> RESERVED, lot -> RESERVED
     public void approveTransaction(Transaction t) {
-        t.setTransactionStatus(Status.RESERVED);
-        if (t.getLot() != null) t.getLot().updateStatus(Status.RESERVED);
+        if (t.getTransactionStatus() == Status.PENDING) {
+            t.setTransactionStatus(Status.COMPLETED);
+            if (t.getLot() != null) {
+                t.getLot().updateStatus(Status.COMPLETED);
+            }
+        }
     }
 
     // Agent rejects: transaction -> REJECTED, lot -> AVAILABLE (available again), store remark
