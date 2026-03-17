@@ -865,40 +865,57 @@ public class BuyerFrame extends javax.swing.JFrame {
         mainTabs.setSelectedIndex(2);
     }
 
-    private void reserveLot() {
+private void reserveLot() {
         String blkSel = (String) jComboBox_selBlock.getSelectedItem();
-        if ("\u2014".equals(blkSel)) return;
-        int blk    = Integer.parseInt(blkSel);
+        if ("—".equals(blkSel)) return;
+
+        int blk = Integer.parseInt(blkSel);
         int lotNum = Integer.parseInt((String) jComboBox_selLot.getSelectedItem());
         AppContext ctx = AppContext.getInstance();
         MyLib.Lot lot = ctx.getSubdivision().findLot(blk, lotNum);
+
         if (lot == null || !lot.getAvailability()) {
-            showMsg("This lot is no longer available."); refreshPurchaseDetails(); return;
+            showMsg("This lot is no longer available."); 
+            refreshPurchaseDetails(); 
+            return;
         }
+
         java.util.List<MyLib.Agent> agents = ctx.getAgents();
         if (agents.isEmpty()) { showMsg("No agents available."); return; }
 
         MyLib.Agent assignedAgent = agents.get(0);
         MyLib.Discount disc = buildPurchaseDiscount();
 
-        MyLib.Transaction txn = new MyLib.Transaction(buyer, lot, null, disc);
-        txn.setTransactionType("RESERVE");   // auto-sets reservedUntil = today + 30 days
+        
+        boolean isCash = "Cash".equals(jComboBox_payMethod.getSelectedItem());
+        int loanTerm;
+        loanTerm = (isCash || jComboBox_loanTerm.getSelectedItem() == null) ? 0
+                : (Integer) jComboBox_loanTerm.getSelectedItem();
+
+        
+        MyLib.PaymentMethod pm = buildPurchasePaymentMethod(loanTerm, lot);
+
+        
+        MyLib.Transaction txn = new MyLib.Transaction(buyer, lot, pm, disc);
+        txn.setTransactionType("RESERVE");
         txn.setTransactionStatus(MyLib.Status.RESERVED);
         txn.setAssignedAgent(assignedAgent);
+        txn.setLoanTerm(loanTerm); // Set the loan term explicitly
+
+       
+        txn.setReservedUntil(java.time.LocalDate.now().plusDays(30).toString());
+       
 
         lot.updateStatus(MyLib.Status.RESERVED);
         buyer.addTransaction(txn);
         assignedAgent.addPendingTransaction(txn);
         ctx.addTransaction(txn);
 
-        showMsg("Reserved! Block " + blk + " Lot " + lotNum
+        showMsg("Reserved! Block " + blk + " Lot " + lotNum 
             + " is reserved until " + txn.getReservedUntil() + ".");
 
+        
         jComboBox_selBlock.setSelectedIndex(0);
-        jCheckBox_senior.setSelected(false);
-        jCheckBox_pwd.setSelected(false);
-        jCheckBox_firstTime.setSelected(false);
-        jCheckBox_veteran.setSelected(false);
         populateBrowseTable(buyer.viewAvailableLots());
         refreshBuyerTxnTable();
         mainTabs.setSelectedIndex(2);
