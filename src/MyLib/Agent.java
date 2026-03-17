@@ -111,6 +111,42 @@ public class Agent extends User {
         return sb.toString();
     }
 
+    // Called when buyer forwards transaction to this agent
+    public void addPendingTransaction(Transaction t) {
+        handledTransactions.add(t);
+    }
+
+    // Returns only PENDING transactions
+    public List<Transaction> getPendingTransactions() {
+        List<Transaction> result = new ArrayList<>();
+        for (Transaction t : handledTransactions)
+            if (t.getTransactionStatus() == Status.PENDING) result.add(t);
+        return result;
+    }
+
+    // Returns RESERVED + COMPLETED transactions
+    public List<Transaction> getApprovedTransactions() {
+        List<Transaction> result = new ArrayList<>();
+        for (Transaction t : handledTransactions)
+            if (t.getTransactionStatus() == Status.RESERVED
+                    || t.getTransactionStatus() == Status.COMPLETED)
+                result.add(t);
+        return result;
+    }
+
+    // Agent approves: transaction -> RESERVED, lot -> RESERVED
+    public void approveTransaction(Transaction t) {
+        t.setTransactionStatus(Status.RESERVED);
+        if (t.getLot() != null) t.getLot().updateStatus(Status.RESERVED);
+    }
+
+    // Agent rejects: transaction -> REJECTED, lot -> PENDING (available again), store remark
+    public void rejectTransaction(Transaction t, String reason) {
+        t.setTransactionStatus(Status.REJECTED);
+        t.setRemark(reason);
+        if (t.getLot() != null) t.getLot().updateStatus(Status.PENDING);
+    }
+
     public String getAgentId()                           { return agentId; }
     public double getCommissionRate()                    { return commissionRate; }
     public List<Transaction> getHandledTransactions()    { return handledTransactions; }

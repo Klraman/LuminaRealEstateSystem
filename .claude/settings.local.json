@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(JAVA_HOME=\"/c/Program Files/Java/jdk-25\" \\\\\n  \"/c/Program Files/Apache NetBeans/extide/ant/bin/ant\" \\\\\n  -f \"C:/Users/My Computer/Documents/Important Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/build.xml\" \\\\\n  -p 2>&1 | grep \"^  \")",
+      "Bash(JAVA_HOME=\"/c/Program Files/Java/jdk-25\" \\\\\n  \"/c/Program Files/Apache NetBeans/extide/ant/bin/ant\" \\\\\n  -f \"C:/Users/My Computer/Documents/Important Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/build.xml\" \\\\\n  clean jar 2>&1)",
+      "Bash(find:*)",
+      "Bash(for f:*)",
+      "Bash(do)",
+      "Bash(echo \"=== $f.form ===\")",
+      "Read(//c/Users/My Computer/Documents/Important Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/**)",
+      "Bash(done)",
+      "Bash(cd:*)",
+      "Bash('SRC=C:/Users/My Computer/Documents/Important Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src' 'OUT=C:/Users/My Computer/Documents/Important Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/build/classes' mkdir -p $OUT find $SRC -name *.java cat /tmp/sources.txt)",
+      "Bash(SRC=\"C:/Users/My Computer/Documents/Important Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/src\" OUT=\"C:/Users/My Computer/Documents/Important Stuff/School/College/Coding/Netbeans/LuminaRealEstateSystem/build/classes\" mkdir -p \"$OUT\" find \"$SRC\" -name \"*.java\")",
+      "Bash(echo:*)"
+    ]
+  }
+}

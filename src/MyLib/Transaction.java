@@ -14,6 +14,9 @@ public class Transaction {
     private Lot lot;
     private Buyer buyer;
     private Status transactionStatus;
+    private String remark;
+    private Agent assignedAgent;
+    private int loanTerm;
 
     public Transaction(Buyer buyer, Lot lot, PaymentMethod paymentMethod, Discount discount) {
         this.transactionID = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
@@ -83,9 +86,15 @@ public class Transaction {
     public Lot getLot()                        { return lot; }
     public Buyer getBuyer()                    { return buyer; }
     public Status getTransactionStatus()       { return transactionStatus; }
+    public String getRemark()                  { return remark; }
+    public Agent getAssignedAgent()            { return assignedAgent; }
+    public int getLoanTerm()                   { return loanTerm; }
 
     public void setPaymentMethod(PaymentMethod pm) { this.paymentMethod = pm; }
     public void setDiscount(Discount d)            { this.discount = d; }
     public void setInstallmentPlan(int plan)       { this.installmentPlan = plan; }
     public void setInstallmentsPaid(int paid)      { this.installmentsPaid = paid; }
+    public void setRemark(String remark)           { this.remark = remark; }
+    public void setAssignedAgent(Agent agent)      { this.assignedAgent = agent; }
+    public void setLoanTerm(int loanTerm)          { this.loanTerm = loanTerm; }
 }
