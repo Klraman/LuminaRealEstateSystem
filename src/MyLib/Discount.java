@@ -13,6 +13,11 @@ public abstract class Discount {
         return discountLabel + " Discount (" + (discountRate * 100) + "%)";
     }
 
-    public double getDiscountRate()  { return discountRate; }
-    public String getDiscountLabel() { return discountLabel; }
+    public double getDiscountRate(){
+        return discountRate;
+    }
+
+    public String getDiscountLabel(){
+        return discountLabel;
+    }
 }

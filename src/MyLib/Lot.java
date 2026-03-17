@@ -23,12 +23,29 @@ public class Lot {
         this.transactionStatus = newStatus;
     }
 
-    public int getBlkNum()                    { return blkNum; }
-    public int getLotNum()                    { return lotNum; }
-    public Status getTransactionStatus()      { return transactionStatus; }
-    public PropertyUnit getHouseModel()       { return houseModel; }
-    public void setHouseModel(PropertyUnit m) { this.houseModel = m; }
-    public Block getBlock()                   { return block; }
+    public int getBlkNum(){
+        return blkNum;
+    }
+
+    public int getLotNum(){
+        return lotNum;
+    }
+
+    public Status getTransactionStatus(){
+        return transactionStatus;
+    }
+
+    public PropertyUnit getHouseModel(){
+        return houseModel;
+    }
+
+    public void setHouseModel(PropertyUnit houseModel){
+        this.houseModel = houseModel;
+    }
+
+    public Block getBlock(){
+        return block;
+    }
 
     @Override
     public String toString() {

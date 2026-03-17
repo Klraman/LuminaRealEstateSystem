@@ -147,7 +147,23 @@ public class Agent extends User {
         if (t.getLot() != null) t.getLot().updateStatus(Status.PENDING);
     }
 
-    public String getAgentId()                           { return agentId; }
-    public double getCommissionRate()                    { return commissionRate; }
-    public List<Transaction> getHandledTransactions()    { return handledTransactions; }
+    public String getAgentId(){
+        return agentId;
+    }
+
+    public double getCommissionRate(){
+        return commissionRate;
+    }
+
+    public void setCommissionRate(double commissionRate){
+        this.commissionRate = commissionRate;
+    }
+
+    public Subdivision getSubdivision(){
+        return subdivision;
+    }
+
+    public List<Transaction> getHandledTransactions(){
+        return handledTransactions;
+    }
 }

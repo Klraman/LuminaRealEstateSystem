@@ -32,7 +32,15 @@ public class Block {
         return available;
     }
 
-    public int getBlockNum()      { return blockNum; }
-    public List<Lot> getLots()    { return lots; }
-    public double getTotalSqm()   { return totalSqm; }
+    public int getBlockNum(){
+        return blockNum;
+    }
+
+    public List<Lot> getLots(){
+        return lots;
+    }
+
+    public double getTotalSqm(){
+        return totalSqm;
+    }
 }

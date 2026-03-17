@@ -42,9 +42,31 @@ public class EMI implements PaymentMethod {
         return getMonthlyDue() * remaining;
     }
 
-    public String getPlatformName()      { return platformName; }
-    public String getAccountNumber()     { return accountNumber; }
-    public int getLoanTerm()             { return loanTerm; }
-    public int getInstallmentsPaid()     { return installmentsPaid; }
-    public PropertyUnit getPropertyUnit(){ return propertyUnit; }
+    public String getPlatformName(){
+        return platformName;
+    }
+
+    public String getAccountNumber(){
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber){
+        this.accountNumber = accountNumber;
+    }
+
+    public int getLoanTerm(){
+        return loanTerm;
+    }
+
+    public void setLoanTerm(int loanTerm){
+        this.loanTerm = loanTerm;
+    }
+
+    public int getInstallmentsPaid(){
+        return installmentsPaid;
+    }
+
+    public PropertyUnit getPropertyUnit(){
+        return propertyUnit;
+    }
 }

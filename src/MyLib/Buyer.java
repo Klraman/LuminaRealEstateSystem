@@ -55,8 +55,31 @@ public class Buyer extends User {
         myTransactions.add(t);
     }
 
-    public String getBuyerId()       { return buyerId; }
-    public double getBudget()        { return budget; }
-    public BuyerType getBuyerType()  { return buyerType; }
-    public void setBudget(double b)  { this.budget = b; }
+    public String getBuyerId(){
+        return buyerId;
+    }
+
+    public double getBudget(){
+        return budget;
+    }
+
+    public void setBudget(double budget){
+        this.budget = budget;
+    }
+
+    public BuyerType getBuyerType(){
+        return buyerType;
+    }
+
+    public void setBuyerType(BuyerType buyerType){
+        this.buyerType = buyerType;
+    }
+
+    public Subdivision getSubdivision(){
+        return subdivision;
+    }
+
+    public List<Transaction> getMyTransactions(){
+        return myTransactions;
+    }
 }

@@ -30,15 +30,47 @@ public abstract class PropertyUnit {
         return loanableAmount * (r * factor) / (factor - 1);
     }
 
-    public String getModelName()       { return modelName; }
-    public int getLotArea()            { return lotArea; }
-    public int getFloorArea()          { return floorArea; }
-    public double getEstimatedTCP()    { return estimatedTCP; }
-    public double getLoanableAmount()  { return loanableAmount; }
-    public double getReservationFee()  { return reservationFee; }
-    public double getDownPayment()     { return downPayment; }
-    public double getDpTarget()        { return dpTarget; }
-    public double getDpPeriod()        { return dpPeriod; }
-    public double getInterestRate()    { return interestRate; }
-    public Phase getPhase()            { return phase; }
+    public String getModelName(){
+        return modelName;
+    }
+
+    public int getLotArea(){
+        return lotArea;
+    }
+
+    public int getFloorArea(){
+        return floorArea;
+    }
+
+    public double getEstimatedTCP(){
+        return estimatedTCP;
+    }
+
+    public double getLoanableAmount(){
+        return loanableAmount;
+    }
+
+    public double getReservationFee(){
+        return reservationFee;
+    }
+
+    public double getDownPayment(){
+        return downPayment;
+    }
+
+    public double getDpTarget(){
+        return dpTarget;
+    }
+
+    public double getDpPeriod(){
+        return dpPeriod;
+    }
+
+    public double getInterestRate(){
+        return interestRate;
+    }
+
+    public Phase getPhase(){
+        return phase;
+    }
 }

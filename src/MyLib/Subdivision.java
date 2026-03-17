@@ -76,7 +76,15 @@ public class Subdivision {
                 + "Sold       : " + sold + "\n";
     }
 
-    public String getName()         { return name; }
-    public int getTotalBlocks()     { return totalBlocks; }
-    public List<Block> getBlocks()  { return blocks; }
+    public String getName(){
+        return name;
+    }
+
+    public int getTotalBlocks(){
+        return totalBlocks;
+    }
+
+    public List<Block> getBlocks(){
+        return blocks;
+    }
 }

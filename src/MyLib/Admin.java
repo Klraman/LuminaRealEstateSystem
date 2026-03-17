@@ -37,6 +37,15 @@ public class Admin extends User {
         return sb.toString();
     }
 
-    public String getAdminId()           { return adminId; }
-    public Subdivision getSubdivision()  { return subdivision; }
+    public String getAdminId(){
+        return adminId;
+    }
+
+    public Subdivision getSubdivision(){
+        return subdivision;
+    }
+
+    public List<Transaction> getAllTransactions(){
+        return allTransactions;
+    }
 }

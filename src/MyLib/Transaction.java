@@ -76,25 +76,87 @@ public class Transaction {
         this.transactionStatus = newStatus;
     }
 
-    public String getTransactionID()           { return transactionID; }
-    public double getAmount()                  { return amount; }
-    public boolean isPaid()                    { return isPaid; }
-    public int getInstallmentPlan()            { return installmentPlan; }
-    public int getInstallmentsPaid()           { return installmentsPaid; }
-    public PaymentMethod getPaymentMethod()    { return paymentMethod; }
-    public Discount getDiscount()              { return discount; }
-    public Lot getLot()                        { return lot; }
-    public Buyer getBuyer()                    { return buyer; }
-    public Status getTransactionStatus()       { return transactionStatus; }
-    public String getRemark()                  { return remark; }
-    public Agent getAssignedAgent()            { return assignedAgent; }
-    public int getLoanTerm()                   { return loanTerm; }
+    public String getTransactionID(){
+        return transactionID;
+    }
 
-    public void setPaymentMethod(PaymentMethod pm) { this.paymentMethod = pm; }
-    public void setDiscount(Discount d)            { this.discount = d; }
-    public void setInstallmentPlan(int plan)       { this.installmentPlan = plan; }
-    public void setInstallmentsPaid(int paid)      { this.installmentsPaid = paid; }
-    public void setRemark(String remark)           { this.remark = remark; }
-    public void setAssignedAgent(Agent agent)      { this.assignedAgent = agent; }
-    public void setLoanTerm(int loanTerm)          { this.loanTerm = loanTerm; }
+    public double getAmount(){
+        return amount;
+    }
+
+    public boolean isPaid(){
+        return isPaid;
+    }
+
+    public void setPaid(boolean isPaid){
+        this.isPaid = isPaid;
+    }
+
+    public int getInstallmentPlan(){
+        return installmentPlan;
+    }
+
+    public void setInstallmentPlan(int installmentPlan){
+        this.installmentPlan = installmentPlan;
+    }
+
+    public int getInstallmentsPaid(){
+        return installmentsPaid;
+    }
+
+    public void setInstallmentsPaid(int installmentsPaid){
+        this.installmentsPaid = installmentsPaid;
+    }
+
+    public PaymentMethod getPaymentMethod(){
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod){
+        this.paymentMethod = paymentMethod;
+    }
+
+    public Discount getDiscount(){
+        return discount;
+    }
+
+    public void setDiscount(Discount discount){
+        this.discount = discount;
+    }
+
+    public Lot getLot(){
+        return lot;
+    }
+
+    public Buyer getBuyer(){
+        return buyer;
+    }
+
+    public Status getTransactionStatus(){
+        return transactionStatus;
+    }
+
+    public String getRemark(){
+        return remark;
+    }
+
+    public void setRemark(String remark){
+        this.remark = remark;
+    }
+
+    public Agent getAssignedAgent(){
+        return assignedAgent;
+    }
+
+    public void setAssignedAgent(Agent assignedAgent){
+        this.assignedAgent = assignedAgent;
+    }
+
+    public int getLoanTerm(){
+        return loanTerm;
+    }
+
+    public void setLoanTerm(int loanTerm){
+        this.loanTerm = loanTerm;
+    }
 }

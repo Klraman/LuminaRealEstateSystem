@@ -22,6 +22,11 @@ public class Cash implements PaymentMethod {
         }
     }
 
-    public double getReceivedAmount() { return receivedAmount; }
-    public void setReceivedAmount(double receivedAmount) { this.receivedAmount = receivedAmount; }
+    public double getReceivedAmount(){
+        return receivedAmount;
+    }
+
+    public void setReceivedAmount(double receivedAmount){
+        this.receivedAmount = receivedAmount;
+    }
 }

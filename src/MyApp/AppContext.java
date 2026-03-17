@@ -141,10 +141,27 @@ public class AppContext {
     // ------------------------------------------------------------------
     // Getters
     // ------------------------------------------------------------------
-    public Subdivision           getSubdivision()     { return subdivision; }
-    public PropertyCatalog       getCatalog()          { return catalog; }
-    public List<Admin>           getAdmins()           { return admins; }
-    public List<Agent>           getAgents()           { return agents; }
-    public List<Buyer>           getBuyers()           { return buyers; }
-    public List<Transaction>     getAllTransactions()  { return allTransactions; }
+    public Subdivision getSubdivision(){
+        return subdivision;
+    }
+
+    public PropertyCatalog getCatalog(){
+        return catalog;
+    }
+
+    public List<Admin> getAdmins(){
+        return admins;
+    }
+
+    public List<Agent> getAgents(){
+        return agents;
+    }
+
+    public List<Buyer> getBuyers(){
+        return buyers;
+    }
+
+    public List<Transaction> getAllTransactions(){
+        return allTransactions;
+    }
 }
