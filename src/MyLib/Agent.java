@@ -136,11 +136,11 @@ public class Agent extends User {
         if (t.getLot() != null) t.getLot().updateStatus(Status.RESERVED);
     }
 
-    // Agent rejects: transaction -> REJECTED, lot -> PENDING (available again), store remark
+    // Agent rejects: transaction -> REJECTED, lot -> AVAILABLE (available again), store remark
     public void rejectTransaction(Transaction t, String reason) {
         t.setTransactionStatus(Status.REJECTED);
         t.setRemark(reason);
-        if (t.getLot() != null) t.getLot().updateStatus(Status.PENDING);
+        if (t.getLot() != null) t.getLot().updateStatus(Status.AVAILABLE);
     }
 
     // Returns only RESERVED transactions handled by this agent
@@ -151,10 +151,10 @@ public class Agent extends User {
         return result;
     }
 
-    // Agent cancels reservation: transaction -> CANCELLED, lot -> PENDING (available again)
+    // Agent cancels reservation: transaction -> CANCELLED, lot -> AVAILABLE (available again)
     public void cancelReservation(Transaction t) {
         t.setTransactionStatus(Status.CANCELLED);
-        if (t.getLot() != null) t.getLot().updateStatus(Status.PENDING);
+        if (t.getLot() != null) t.getLot().updateStatus(Status.AVAILABLE);
     }
 
     // Agent finalizes reservation: transaction -> COMPLETED, lot -> COMPLETED
