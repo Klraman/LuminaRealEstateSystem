@@ -56,9 +56,12 @@ public class Transaction {
 
     public double getFinalTCP() {
         double tcp = (lot != null && lot.getHouseModel() != null)
-                ? lot.getHouseModel().getCalculatedTCP() : amount;
+                ? lot.getHouseModel().getEstimatedTCP() : amount;
         if (discount != null) {
             tcp -= discount.computeDiscount(tcp);
+        }
+        if ("RESERVE".equals(transactionType) && lot != null && lot.getHouseModel() != null) {
+            tcp += lot.getHouseModel().getReservationFee();
         }
         return tcp;
     }

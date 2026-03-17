@@ -507,6 +507,7 @@ public class BuyerFrame extends javax.swing.JFrame {
     // ── Non-GEN fields ──────────────────────────────────────────────────────
     private java.util.List<MyLib.Lot> buyerCurrentLots = new java.util.ArrayList<>();
     private javax.swing.JLabel statusLabel;
+    private boolean updatingCombos = false;
 
     private static final java.awt.Color BG           = new java.awt.Color(248, 249, 252);
     private static final java.awt.Color HEADER_COLOR = new java.awt.Color(0, 51, 204);
@@ -523,6 +524,10 @@ public class BuyerFrame extends javax.swing.JFrame {
         // User label
         jLabel6.setText(buyer.getName() + "  |  Buyer");
         statusLabel.setText("  " + buyer.getName() + "  |  " + java.time.LocalDate.now());
+
+        // Rename purchase detail key labels to clearer terminology
+        jLabel_tcpKey.setText("Base Cost:");
+        jLabel_finalTcpKey.setText("Final Cost (TCP):");
 
         // Build table models with columns and attach to tables (AgentFrame pattern)
         browseLotTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -565,20 +570,10 @@ public class BuyerFrame extends javax.swing.JFrame {
         jComboBox_loanTerm.addActionListener(e -> refreshPurchaseDetails());
         jComboBox_payMethod.addActionListener(e -> onPayMethodChanged());
 
-        java.awt.event.ItemListener discListener = evt -> {
-            if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
-                javax.swing.JCheckBox src = (javax.swing.JCheckBox) evt.getSource();
-                if (src != jCheckBox_senior)    jCheckBox_senior.setSelected(false);
-                if (src != jCheckBox_pwd)       jCheckBox_pwd.setSelected(false);
-                if (src != jCheckBox_firstTime) jCheckBox_firstTime.setSelected(false);
-                if (src != jCheckBox_veteran)   jCheckBox_veteran.setSelected(false);
-            }
-            refreshPurchaseDetails();
-        };
-        jCheckBox_senior.addItemListener(discListener);
-        jCheckBox_pwd.addItemListener(discListener);
-        jCheckBox_firstTime.addItemListener(discListener);
-        jCheckBox_veteran.addItemListener(discListener);
+        jCheckBox_senior.addActionListener(e -> { uncheckOtherDiscounts(jCheckBox_senior);    refreshPurchaseDetails(); });
+        jCheckBox_pwd.addActionListener(e -> { uncheckOtherDiscounts(jCheckBox_pwd);          refreshPurchaseDetails(); });
+        jCheckBox_firstTime.addActionListener(e -> { uncheckOtherDiscounts(jCheckBox_firstTime); refreshPurchaseDetails(); });
+        jCheckBox_veteran.addActionListener(e -> { uncheckOtherDiscounts(jCheckBox_veteran);  refreshPurchaseDetails(); });
         jButton_reserve.addActionListener(e -> reserveLot());
         jButton_submitToAgent.addActionListener(e -> submitPurchaseToAgent());
         jButton_refreshTxns.addActionListener(e -> refreshBuyerTxnTable());
@@ -670,6 +665,7 @@ public class BuyerFrame extends javax.swing.JFrame {
     // ── Purchase helpers ────────────────────────────────────────────────────
 
     private void refreshPurchaseDetails() {
+        if (updatingCombos) return;
         String blkSel = (String) jComboBox_selBlock.getSelectedItem();
         if ("\u2014".equals(blkSel)) {
             clearPurchaseDetails();
@@ -705,20 +701,35 @@ public class BuyerFrame extends javax.swing.JFrame {
         double tcp      = u.getEstimatedTCP();
         MyLib.Discount disc = buildPurchaseDiscount();
         double discAmt  = disc != null ? disc.computeDiscount(tcp) : 0;
-        double finalTcp = tcp - discAmt;
-
-        jLabel_tcp.setText("\u20b1" + String.format("%,.2f", tcp));
-        jLabel_discountAmt.setText(disc != null
-            ? "\u20b1" + String.format("%,.2f", discAmt) + " (" + disc.getDiscountDescription() + ")"
-            : "None");
-        jLabel_finalTcp.setText("\u20b1" + String.format("%,.2f", finalTcp));
-        jLabel_resFee.setText("\u20b1" + String.format("%,.2f", u.getReservationFee()));
-        jLabel_downPayment.setText("\u20b1" + String.format("%,.2f", u.getDownPayment()));
-        jLabel_dpTarget.setText("\u20b1" + String.format("%,.2f", u.getDpTarget()) + " / month");
-        jLabel_dpPeriod.setText((int) u.getDpPeriod() + " months");
 
         String payMethod = (String) jComboBox_payMethod.getSelectedItem();
         boolean isCash   = "Cash".equals(payMethod);
+
+        double finalTcp;
+        if (isCash) {
+            finalTcp = tcp - discAmt;
+        } else {
+            if (jComboBox_loanTerm.getSelectedItem() == null) {
+                finalTcp = tcp - discAmt; // fallback if term not yet set
+            } else {
+                double discountedTcp      = tcp - discAmt;
+                double discountedLoanable = discountedTcp - u.getDownPayment();
+                double rate               = getEffectiveRate(u, payMethod);
+                int    term               = (Integer) jComboBox_loanTerm.getSelectedItem();
+                double monthly            = computeMonthlyAmort(discountedLoanable, term, rate);
+                finalTcp = u.getDownPayment() + (monthly * term * 12);
+            }
+        }
+
+        jLabel_tcp.setText("\u20b1" + String.format("%,.2f", tcp));
+        jLabel_discountAmt.setText(disc != null
+            ? "-\u20b1" + String.format("%,.2f", discAmt) + " (" + disc.getDiscountDescription() + ")"
+            : "None");
+        jLabel_finalTcp.setText("\u20b1" + String.format("%,.2f", finalTcp));
+        jLabel_resFee.setText("+\u20b1" + String.format("%,.2f", u.getReservationFee()) + "  (if reserving)");
+        jLabel_downPayment.setText("\u20b1" + String.format("%,.2f", u.getDownPayment()));
+        jLabel_dpTarget.setText("\u20b1" + String.format("%,.2f", u.getDpTarget()) + " / month");
+        jLabel_dpPeriod.setText((int) u.getDpPeriod() + " months");
 
         jLabel_loanTerm.setVisible(!isCash);
         jComboBox_loanTerm.setVisible(!isCash);
@@ -733,17 +744,18 @@ public class BuyerFrame extends javax.swing.JFrame {
                 jButton_submitToAgent.setEnabled(true);
                 return;
             }
+            double discountedLoanable = (tcp - discAmt) - u.getDownPayment();
             double rate  = getEffectiveRate(u, payMethod);
             int    term  = (Integer) jComboBox_loanTerm.getSelectedItem();
-            jLabel_interestRate.setText(String.format("%.2f%% p.a. (%s)", rate * 100, payMethod));
-            double monthly = computeMonthlyAmort(u.getLoanableAmount(), term, rate);
+            jLabel_interestRate.setText(String.format("%.2f%% p.a.", rate * 100));
+            double monthly = computeMonthlyAmort(discountedLoanable, term, rate);
             jLabel_monthlyAmort.setText("\u20b1" + String.format("%,.2f", monthly) + " / month");
 
             javax.swing.table.DefaultTableModel am = (javax.swing.table.DefaultTableModel) jTable_amortTable.getModel();
             am.setRowCount(0);
             int[] terms = getTermsForMethod(payMethod);
             for (int yr : terms)
-                am.addRow(new Object[]{yr + " years", "\u20b1" + String.format("%,.2f", computeMonthlyAmort(u.getLoanableAmount(), yr, rate))});
+                am.addRow(new Object[]{yr + " years", "\u20b1" + String.format("%,.2f", computeMonthlyAmort(discountedLoanable, yr, rate))});
             for (int i = 0; i < terms.length; i++)
                 if (terms[i] == term) { jTable_amortTable.setRowSelectionInterval(i, i); break; }
         }
@@ -756,11 +768,10 @@ public class BuyerFrame extends javax.swing.JFrame {
         String method = (String) jComboBox_payMethod.getSelectedItem();
         if (!"Cash".equals(method)) {
             int[] terms = getTermsForMethod(method);
-            java.awt.event.ActionListener[] als = jComboBox_loanTerm.getActionListeners();
-            for (java.awt.event.ActionListener l : als) jComboBox_loanTerm.removeActionListener(l);
+            updatingCombos = true;
             jComboBox_loanTerm.removeAllItems();
             for (int yr : terms) jComboBox_loanTerm.addItem(yr);
-            for (java.awt.event.ActionListener l : als) jComboBox_loanTerm.addActionListener(l);
+            updatingCombos = false;
         }
         boolean isCash = "Cash".equals(method);
         jLabel_loanTerm.setVisible(!isCash);
@@ -774,7 +785,7 @@ public class BuyerFrame extends javax.swing.JFrame {
             case "Bank":           return 0.065;    // 6.50% p.a.
             case "Pag-IBIG":
                 return "Aimee Inner".equals(u.getModelName()) ? 0.03 : 0.0625; // 3% socialized / 6.25% standard
-            case "EMI (In-House)": return 0.14;     // 14% p.a.
+            case "EMI (In-House)": return u.getInterestRate(); // from the property unit directly
             default:               return 0.0;
         }
     }
@@ -811,6 +822,13 @@ public class BuyerFrame extends javax.swing.JFrame {
         jLabel_loanTerm.setVisible(!isCash);
         jComboBox_loanTerm.setVisible(!isCash);
         jScrollPane_amort.setVisible(!isCash);
+    }
+
+    private void uncheckOtherDiscounts(javax.swing.JCheckBox selected) {
+        if (selected != jCheckBox_senior)    jCheckBox_senior.setSelected(false);
+        if (selected != jCheckBox_pwd)       jCheckBox_pwd.setSelected(false);
+        if (selected != jCheckBox_firstTime) jCheckBox_firstTime.setSelected(false);
+        if (selected != jCheckBox_veteran)   jCheckBox_veteran.setSelected(false);
     }
 
     private MyLib.Discount buildPurchaseDiscount() {
@@ -865,7 +883,7 @@ public class BuyerFrame extends javax.swing.JFrame {
         mainTabs.setSelectedIndex(2);
     }
 
-private void reserveLot() {
+    private void reserveLot() {
         String blkSel = (String) jComboBox_selBlock.getSelectedItem();
         if ("—".equals(blkSel)) return;
 
@@ -924,7 +942,8 @@ private void reserveLot() {
     private MyLib.PaymentMethod buildPurchasePaymentMethod(int loanTerm, MyLib.Lot lot) {
         String method = (String) jComboBox_payMethod.getSelectedItem();
         switch (method) {
-            case "Bank":           return new MyLib.Bank(0);
+            case "Bank":           return new MyLib.Bank("Bank Financing", "BANK-" + System.currentTimeMillis(),
+                                           lot.getHouseModel().getLoanableAmount(), loanTerm);
             case "Pag-IBIG":       return new MyLib.Pagibig("PAGIBIG-000", "Housing", 0);
             case "EMI (In-House)": return new MyLib.EMI("EMI-" + System.currentTimeMillis(),
                                            loanTerm, lot.getHouseModel());
